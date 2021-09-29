@@ -1,0 +1,10 @@
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\bin\Debug\SW-Projekt.exe.config
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\bin\Debug\SW-Projekt.exe
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\bin\Debug\SW-Projekt.pdb
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.csproj.AssemblyReference.cache
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\obj\Debug\SW_Projekt.form1.resources
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\obj\Debug\SW_Projekt.Properties.Resources.resources
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.csproj.GenerateResource.cache
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.csproj.CoreCompileInputs.cache
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.exe
+C:\CS-Projekte\5.k\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.pdb
