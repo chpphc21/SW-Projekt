@@ -16,5 +16,36 @@ namespace SW_Projekt
         {
             InitializeComponent();
         }
+        chat Chat = new chat();
+
+        private void but_anm_Click(object sender, EventArgs e)
+        {
+            Chat.Show();
+            Chat.Text += text_anm.Text;
+            this.Hide();
+        }
+
+        private void but_reg_Click(object sender, EventArgs e)
+        {
+            Chat.Show();
+            Chat.Text += text_reg.Text;
+            this.Hide();
+        }
+
+        private void text_anm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                but_anm.PerformClick();
+            }
+        }
+
+        private void text_reg_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                but_reg.PerformClick();
+            }
+        }
     }
 }
