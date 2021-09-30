@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\SW-Projekt",
+    "\\SW-Projekt\\SW-Projekt"
   ],
-  "SelectedNode": "\\SW-Projekt.sln",
+  "SelectedNode": "\\SW-Projekt\\SW-Projekt\\Form1.cs",
   "PreviewInSolutionExplorer": false
 }

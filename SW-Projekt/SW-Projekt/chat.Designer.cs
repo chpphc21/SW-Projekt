@@ -32,13 +32,22 @@ namespace SW_Projekt
             this.Text_chat = new System.Windows.Forms.TextBox();
             this.but_senden = new System.Windows.Forms.Button();
             this.chatbox = new System.Windows.Forms.ListBox();
+            this.but_ver = new System.Windows.Forms.Button();
+            this.lab_user = new System.Windows.Forms.Label();
+            this.list_user = new System.Windows.Forms.ListBox();
+            this.but_akt = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lab_status = new System.Windows.Forms.Label();
+            this.but_auswahl = new System.Windows.Forms.Button();
+            this.lab_auswahl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Text_chat
             // 
+            this.Text_chat.Enabled = false;
             this.Text_chat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.Text_chat.ForeColor = System.Drawing.Color.Silver;
-            this.Text_chat.Location = new System.Drawing.Point(51, 223);
+            this.Text_chat.ForeColor = System.Drawing.Color.DarkGray;
+            this.Text_chat.Location = new System.Drawing.Point(22, 256);
             this.Text_chat.Name = "Text_chat";
             this.Text_chat.Size = new System.Drawing.Size(247, 29);
             this.Text_chat.TabIndex = 0;
@@ -49,9 +58,10 @@ namespace SW_Projekt
             // 
             // but_senden
             // 
+            this.but_senden.Enabled = false;
             this.but_senden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_senden.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.but_senden.Location = new System.Drawing.Point(331, 215);
+            this.but_senden.Location = new System.Drawing.Point(302, 248);
             this.but_senden.Name = "but_senden";
             this.but_senden.Size = new System.Drawing.Size(111, 45);
             this.but_senden.TabIndex = 1;
@@ -61,20 +71,115 @@ namespace SW_Projekt
             // 
             // chatbox
             // 
+            this.chatbox.Enabled = false;
             this.chatbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.chatbox.FormattingEnabled = true;
             this.chatbox.ItemHeight = 16;
-            this.chatbox.Location = new System.Drawing.Point(51, 39);
+            this.chatbox.Location = new System.Drawing.Point(22, 45);
             this.chatbox.Name = "chatbox";
             this.chatbox.Size = new System.Drawing.Size(247, 164);
             this.chatbox.TabIndex = 3;
+            // 
+            // but_ver
+            // 
+            this.but_ver.Enabled = false;
+            this.but_ver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.but_ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.but_ver.Location = new System.Drawing.Point(22, 215);
+            this.but_ver.Name = "but_ver";
+            this.but_ver.Size = new System.Drawing.Size(247, 29);
+            this.but_ver.TabIndex = 4;
+            this.but_ver.Text = "Verlauf löschen";
+            this.but_ver.UseVisualStyleBackColor = true;
+            this.but_ver.Click += new System.EventHandler(this.but_ver_Click);
+            // 
+            // lab_user
+            // 
+            this.lab_user.AutoSize = true;
+            this.lab_user.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lab_user.Location = new System.Drawing.Point(481, 10);
+            this.lab_user.Name = "lab_user";
+            this.lab_user.Size = new System.Drawing.Size(145, 24);
+            this.lab_user.TabIndex = 5;
+            this.lab_user.Text = "Aktive Benutzer:";
+            // 
+            // list_user
+            // 
+            this.list_user.BackColor = System.Drawing.Color.White;
+            this.list_user.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.list_user.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.list_user.FormattingEnabled = true;
+            this.list_user.ItemHeight = 24;
+            this.list_user.Location = new System.Drawing.Point(485, 45);
+            this.list_user.Name = "list_user";
+            this.list_user.Size = new System.Drawing.Size(141, 170);
+            this.list_user.TabIndex = 7;
+            // 
+            // but_akt
+            // 
+            this.but_akt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.but_akt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.but_akt.Location = new System.Drawing.Point(485, 260);
+            this.but_akt.Name = "but_akt";
+            this.but_akt.Size = new System.Drawing.Size(141, 33);
+            this.but_akt.TabIndex = 8;
+            this.but_akt.Text = "Aktualisieren";
+            this.but_akt.UseVisualStyleBackColor = true;
+            this.but_akt.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Location = new System.Drawing.Point(446, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(2, 280);
+            this.label1.TabIndex = 9;
+            // 
+            // lab_status
+            // 
+            this.lab_status.AutoSize = true;
+            this.lab_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lab_status.Location = new System.Drawing.Point(23, 13);
+            this.lab_status.Name = "lab_status";
+            this.lab_status.Size = new System.Drawing.Size(246, 20);
+            this.lab_status.TabIndex = 10;
+            this.lab_status.Text = "Online aber kein Chat ausgewählt";
+            // 
+            // but_auswahl
+            // 
+            this.but_auswahl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.but_auswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.but_auswahl.Location = new System.Drawing.Point(485, 221);
+            this.but_auswahl.Name = "but_auswahl";
+            this.but_auswahl.Size = new System.Drawing.Size(141, 33);
+            this.but_auswahl.TabIndex = 11;
+            this.but_auswahl.Text = "Auswählen";
+            this.but_auswahl.UseVisualStyleBackColor = true;
+            this.but_auswahl.Click += new System.EventHandler(this.but_auswahl_Click);
+            // 
+            // lab_auswahl
+            // 
+            this.lab_auswahl.AutoSize = true;
+            this.lab_auswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lab_auswahl.Location = new System.Drawing.Point(91, 13);
+            this.lab_auswahl.Name = "lab_auswahl";
+            this.lab_auswahl.Size = new System.Drawing.Size(0, 20);
+            this.lab_auswahl.TabIndex = 12;
             // 
             // chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.ClientSize = new System.Drawing.Size(537, 283);
+            this.ClientSize = new System.Drawing.Size(657, 312);
+            this.Controls.Add(this.lab_auswahl);
+            this.Controls.Add(this.but_auswahl);
+            this.Controls.Add(this.lab_status);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.but_akt);
+            this.Controls.Add(this.list_user);
+            this.Controls.Add(this.lab_user);
+            this.Controls.Add(this.but_ver);
             this.Controls.Add(this.chatbox);
             this.Controls.Add(this.but_senden);
             this.Controls.Add(this.Text_chat);
@@ -93,5 +198,13 @@ namespace SW_Projekt
         private System.Windows.Forms.TextBox Text_chat;
         private System.Windows.Forms.Button but_senden;
         private System.Windows.Forms.ListBox chatbox;
+        private System.Windows.Forms.Button but_ver;
+        private System.Windows.Forms.Label lab_user;
+        private System.Windows.Forms.ListBox list_user;
+        private System.Windows.Forms.Button but_akt;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lab_status;
+        private System.Windows.Forms.Button but_auswahl;
+        private System.Windows.Forms.Label lab_auswahl;
     }
 }

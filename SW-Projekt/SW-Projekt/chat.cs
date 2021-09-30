@@ -23,10 +23,12 @@ namespace SW_Projekt
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Text_chat.Text != "Nachricht" || Text_chat.Text != "")
+            if (Text_chat.Text != "Nachricht")
             {
-            chatbox.Items.Add("Du: " + Text_chat.Text + "\n");
-            Text_chat.Clear();
+                chatbox.Items.Add("Du: " + Text_chat.Text + "\n");
+
+                Text_chat.Clear();
+                Text_chat.Focus();
             }
         }
 
@@ -34,6 +36,7 @@ namespace SW_Projekt
         {
             if (e.KeyCode == Keys.Enter)
             {
+                but_senden.Focus();
                 but_senden.PerformClick();
             }
         }
@@ -48,9 +51,37 @@ namespace SW_Projekt
         {
             if (Text_chat.Text == "")
             {
-                Text_chat.ForeColor = Color.LightGray;
+                Text_chat.ForeColor = Color.DarkGray;
                 Text_chat.Text = "Nachricht";
             }
+        }
+
+        private void but_ver_Click(object sender, EventArgs e)
+        {
+            chatbox.Items.Clear();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            list_user.Items.Add("User 1");
+        }
+
+        private void but_auswahl_Click(object sender, EventArgs e)
+        {
+            Text_chat.Enabled = true;
+            chatbox.Enabled = true;
+            but_senden.Enabled = true;
+            but_ver.Enabled = true;
+            lab_status.Text = "Chat mit";
+            try
+            {
+                lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Bitte einen Benutzer Auswählen!", "Achtung", 0, MessageBoxIcon.Error);
+            }
+
         }
     }
 }
