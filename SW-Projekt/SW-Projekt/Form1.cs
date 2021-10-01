@@ -7,20 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace SW_Projekt
 {
     public partial class form1 : Form
     {
-        string connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\CS-Projekte\Virtual-Walkway\Bitmap_Test1_Schmid\Bitmap_Test1_Schmid\Database\Patienten.mdf;Integrated Security=True;Connect Timeout=30";
-        string pfad = @"C:\CS-Projekte\Virtual-Walkway\Bitmap_Test1_Schmid\Bitmap_Test1_Schmid\Database\";
+        
         string query1;
 
         //Parameter für die Datenbank
-        SqlConnection conn;
-        SqlCommand cmd;
-        SqlDataAdapter da;
+        // Projekt@% Projekt DB:Benutzer
+        string connstring = "";
+        MySqlConnection conn =new MySqlConnection();
+        
         DataTable tbl;  //datatable für Abfragenergebnisse aus der Patientensuche
         public form1()
         {
