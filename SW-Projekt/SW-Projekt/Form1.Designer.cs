@@ -29,6 +29,7 @@ namespace SW_Projekt
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form1));
             this.text_anm = new System.Windows.Forms.TextBox();
             this.text_reg = new System.Windows.Forms.TextBox();
             this.lab_anm = new System.Windows.Forms.Label();
@@ -62,6 +63,7 @@ namespace SW_Projekt
             // 
             this.lab_anm.AutoSize = true;
             this.lab_anm.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.lab_anm.ForeColor = System.Drawing.Color.White;
             this.lab_anm.Location = new System.Drawing.Point(52, 45);
             this.lab_anm.Name = "lab_anm";
             this.lab_anm.Size = new System.Drawing.Size(111, 26);
@@ -72,6 +74,7 @@ namespace SW_Projekt
             // 
             this.lab_reg.AutoSize = true;
             this.lab_reg.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.lab_reg.ForeColor = System.Drawing.Color.White;
             this.lab_reg.Location = new System.Drawing.Point(292, 45);
             this.lab_reg.Name = "lab_reg";
             this.lab_reg.Size = new System.Drawing.Size(129, 26);
@@ -82,7 +85,7 @@ namespace SW_Projekt
             // 
             this.but_anm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_anm.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.but_anm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.but_anm.ForeColor = System.Drawing.Color.White;
             this.but_anm.Location = new System.Drawing.Point(35, 145);
             this.but_anm.Name = "but_anm";
             this.but_anm.Size = new System.Drawing.Size(128, 39);
@@ -95,7 +98,7 @@ namespace SW_Projekt
             // 
             this.but_reg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_reg.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.but_reg.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.but_reg.ForeColor = System.Drawing.Color.White;
             this.but_reg.Location = new System.Drawing.Point(282, 145);
             this.but_reg.Name = "but_reg";
             this.but_reg.Size = new System.Drawing.Size(150, 39);
@@ -106,7 +109,7 @@ namespace SW_Projekt
             // 
             // label1
             // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.Location = new System.Drawing.Point(230, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(2, 180);
@@ -136,7 +139,7 @@ namespace SW_Projekt
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(463, 215);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.farbe);
@@ -147,9 +150,9 @@ namespace SW_Projekt
             this.Controls.Add(this.lab_anm);
             this.Controls.Add(this.text_reg);
             this.Controls.Add(this.text_anm);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "form1";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.Load += new System.EventHandler(this.form1_Load);

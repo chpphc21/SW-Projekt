@@ -68,14 +68,14 @@ namespace SW_Projekt
 
         private void but_auswahl_Click(object sender, EventArgs e)
         {
-            Text_chat.Enabled = true;
-            chatbox.Enabled = true;
-            but_senden.Enabled = true;
-            but_ver.Enabled = true;
-            lab_status.Text = "Chat mit";
             try
             {
                 lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
+                Text_chat.Enabled = true;
+                chatbox.Enabled = true;
+                but_senden.Enabled = true;
+                but_ver.Enabled = true;
+                lab_status.Text = "Chat mit";
             }
             catch
             {
