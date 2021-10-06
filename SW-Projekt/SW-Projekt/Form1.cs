@@ -13,19 +13,22 @@ namespace SW_Projekt
 {
     public partial class form1 : Form
     {
-        
-        string query1;
+        string IPneu;
 
-        //Parameter für die Datenbank
-        // Projekt@% Projekt DB:Benutzer
-        string connstring = "";
+
+        string query1;
+        string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
+
         MySqlConnection conn =new MySqlConnection();
-        
-        DataTable tbl;  //datatable für Abfragenergebnisse aus der Patientensuche
+        MySqlCommand cmd;
+        MySqlDataAdapter da;
+        DataTable tbl;  //datatable für Abfragenergebnisse
+
+
         public form1()
         {
             InitializeComponent();
-            //conns();
+            conn.ConnectionString = SQLServer;
         }
         chat Chat = new chat();
 
@@ -37,6 +40,11 @@ namespace SW_Projekt
             }
             else
             {
+                //status der ausgewählten person auf online setzen
+                query1 = "UPDATE Benutzer.Benutzer Set Status='online' where Benutzername ='+text_anm.Text+';";
+                conn.Open();
+                cmd = new MySqlCommand(query1, conn);
+
                 Chat.Show();
                 Chat.Text += text_anm.Text;
                 this.Hide();
@@ -51,6 +59,10 @@ namespace SW_Projekt
             }
             else
             {
+
+                getIP();
+
+
                 Chat.Show();
                 Chat.Text += text_reg.Text;
                 this.Hide();
@@ -77,10 +89,16 @@ namespace SW_Projekt
         {
             try
             {
-                //conn.Open();
+                conn.Open();
+                farbe.BackColor = Color.FromArgb(0,240,0);
+                farbe.ForeColor = Color.FromArgb(0, 240, 0);
+
             }
             catch
             {
+                farbe.BackColor = Color.Red;
+                label2.ForeColor = Color.Red;
+
                 if (MessageBox.Show("Verbindung zur Datenbank fehlgeschlagen", "Datenbank Fehler", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     Application.Restart();
@@ -92,9 +110,15 @@ namespace SW_Projekt
             }
             finally
             {
-                //conn.Close();
+                conn.Close();
             }
 
         }
+        void getIP()
+        {
+
+        }
     }
+
+
 }

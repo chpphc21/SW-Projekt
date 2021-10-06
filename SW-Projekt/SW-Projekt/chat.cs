@@ -6,15 +6,27 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace SW_Projekt
 {
     public partial class chat : Form
     {
+        //Parameter für die Datenbank
+        // Projekt@% Projekt DB:Benutzer
+
+
+        string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
+
         public chat()
         {
             InitializeComponent();
+        }
+        private void chat_Load(object sender, EventArgs e)
+        {
+
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -83,5 +95,7 @@ namespace SW_Projekt
             }
 
         }
+
+
     }
 }
