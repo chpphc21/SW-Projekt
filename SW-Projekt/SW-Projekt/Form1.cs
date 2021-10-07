@@ -6,8 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace SW_Projekt
 {
@@ -41,9 +43,10 @@ namespace SW_Projekt
             else
             {
                 //status der ausgewählten person auf online setzen
-                query1 = "UPDATE Benutzer.Benutzer Set Status='online' where Benutzername ='+text_anm.Text+';";
+                query1 = "UPDATE Benutzer.Benutzer Set Status='online'  where Benutzername ='"+text_anm.Text+"',set IPAdresse='"+getIP()+";";
                 conn.Open();
-                cmd = new MySqlCommand(query1, conn);
+                //cmd = new MySqlCommand(query1, conn);
+                conn.Close();
 
                 Chat.Show();
                 Chat.Text += text_anm.Text;
@@ -114,9 +117,26 @@ namespace SW_Projekt
             }
 
         }
-        void getIP()
+        public string getIP()
         {
-
+            string pattern = @"\b[10.0.0.]\w+";
+            Regex rg = new Regex(pattern);
+            String strHostName = string.Empty;
+            strHostName = Dns.GetHostName();
+            IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
+            IPAddress[] addr = ipEntry.AddressList;
+            foreach (IPAddress ip in addr)
+            {
+                if (rg.IsMatch(ip.ToString()))
+                {
+                    IPneu = ip.ToString();
+                }
+            }
+            if (IPneu == "")
+            {
+                throw new Exception();
+            }
+            return IPneu;
         }
     }
 
