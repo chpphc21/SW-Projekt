@@ -96,7 +96,7 @@ namespace SW_Projekt
                 conn.Open();
                 farbe.BackColor = Color.FromArgb(0,240,0);
                 label2.ForeColor = Color.FromArgb(0, 240, 0);
-                label2.Text = getIP();
+                label2.Text = "Verbunden";
 
             }
             catch
@@ -113,10 +113,10 @@ namespace SW_Projekt
                     Environment.Exit(0);
                 }
             }
-            finally
-            {
-                conn.Close();
-            }
+            //finally
+            //{
+             //   conn.Close();
+            //}
 
         }
         public string getIP()
@@ -138,20 +138,20 @@ namespace SW_Projekt
             {
                 throw new Exception();
             }
-            if (IPneu.Contains("172.16.46.")) 
+            if (IPneu.Contains("10.0.0.")) 
             {
-                int index1 = IPneu.IndexOf("172.16.46.");
+                int index1 = IPneu.IndexOf("10.0.0.");
                 int index2=10;
-                for (int i = index1; i < index1 + 15; i++)
+                for (int i = index1; i < index1 + 18; i++)
                 {
                     if (IPneu[i] == '%')
                     {
-                        index2 = IPneu[i];
+                        index2 = i;
                         break;
                     }
                 }
-                IP = "10.0.0.";
-                for(int i = index1; index1 < index2 + 1; i++)
+                //IP = "10.0.0.";
+                for(int i = index1; i < index2; i++)
                 {
                     IP += IPneu[i];
                 }
