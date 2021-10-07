@@ -142,7 +142,7 @@ namespace SW_Projekt
             {
                 int index1 = IPneu.IndexOf("172.16.46.");
                 int index2=10;
-                for (int i = index1+1; i < index1 + 15; i++)
+                for (int i = index1; i < index1 + 15; i++)
                 {
                     if (IPneu[i] == '%')
                     {
