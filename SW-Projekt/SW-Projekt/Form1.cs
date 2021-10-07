@@ -15,7 +15,8 @@ namespace SW_Projekt
 {
     public partial class form1 : Form
     {
-        string IPneu;
+        public string IPneu;
+        public string IP;
 
 
         string query1;
@@ -94,14 +95,15 @@ namespace SW_Projekt
             {
                 conn.Open();
                 farbe.BackColor = Color.FromArgb(0,240,0);
-                farbe.ForeColor = Color.FromArgb(0, 240, 0);
+                label2.ForeColor = Color.FromArgb(0, 240, 0);
+                label2.Text = getIP();
 
             }
             catch
             {
                 farbe.BackColor = Color.Red;
                 label2.ForeColor = Color.Red;
-
+                label2.Text = "Fehlgeschlagen";
                 if (MessageBox.Show("Verbindung zur Datenbank fehlgeschlagen", "Datenbank Fehler", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                 {
                     Application.Restart();
@@ -129,14 +131,32 @@ namespace SW_Projekt
             {
                 if (rg.IsMatch(ip.ToString()))
                 {
-                    IPneu = ip.ToString();
-                }
+                    IPneu += ip.ToString()+"%";
+                }          
             }
             if (IPneu == "")
             {
                 throw new Exception();
             }
-            return IPneu;
+            if (IPneu.Contains("172.16.46.")) 
+            {
+                int index1 = IPneu.IndexOf("172.16.46.");
+                int index2=10;
+                for (int i = index1+1; i < index1 + 15; i++)
+                {
+                    if (IPneu[i] == '%')
+                    {
+                        index2 = IPneu[i];
+                        break;
+                    }
+                }
+                IP = "10.0.0.";
+                for(int i = index1; index1 < index2 + 1; i++)
+                {
+                    IP += IPneu[i];
+                }
+            }
+            return IP;
         }
     }
 

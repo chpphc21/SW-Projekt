@@ -17,8 +17,13 @@ namespace SW_Projekt
         //Parameter für die Datenbank
         // Projekt@% Projekt DB:Benutzer
 
-
+        string query1;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
+
+        MySqlConnection conn = new MySqlConnection();
+        MySqlCommand cmd;
+        MySqlDataAdapter da;
+        DataTable tbl;  //datatable für Abfragenergebnisse
 
         public chat()
         {
@@ -75,6 +80,18 @@ namespace SW_Projekt
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            //Benutzer abrufen bei denen das Feld Status auf online steht
+            query1  =  "select Benutzername from Benutzer where Status='online';";
+            conn.Open();
+            cmd = new MySqlCommand(query1, conn);
+            conn.Close();
+
+            cmd = new MySqlCommand(query1, conn);
+            conn.Open();
+            da = new MySqlDataAdapter(cmd);
+            tbl = new DataTable();
+            da.Fill(tbl);
+
             list_user.Items.Add("User 1");
         }
 
