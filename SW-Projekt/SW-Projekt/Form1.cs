@@ -20,7 +20,7 @@ namespace SW_Projekt
 
 
         string query1;
-        string SQLServer = "server = 10.0.0.8; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
+        string SQLServer = "server = koordinationsleiter.ddns.net; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
 
         MySqlConnection conn;
         MySqlCommand cmd;
@@ -140,9 +140,9 @@ namespace SW_Projekt
             {
                 throw new Exception();
             }
-            if (IPneu.Contains("10.0.0."))
+            if (IPneu.Contains("172.16.46."))
             {
-                int index1 = IPneu.IndexOf("10.0.0.");
+                int index1 = IPneu.IndexOf("172.16.46.");
                 int index2 = 10;
                 for (int i = index1; i < index1 + 18; i++)
                 {
@@ -158,7 +158,7 @@ namespace SW_Projekt
                     IP += IPneu[i];
                 }
             }
-            else if (!IPneu.Contains("10.0.0."))
+            else if (!IPneu.Contains("172.16.46."))
                 MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return IP;
