@@ -16,25 +16,39 @@ namespace SW_Projekt
     {
         //Parameter für die Datenbank
         // Projekt@% Projekt DB:Benutzer
-
+        
         string query1;
+        public string user;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
 
         MySqlConnection conn = new MySqlConnection();
         MySqlCommand cmd;
         MySqlDataAdapter da;
         DataTable tbl;  //datatable für Abfragenergebnisse
-
+        //form1 anm = new form1();
         public chat()
         {
             InitializeComponent();
         }
         private void chat_Load(object sender, EventArgs e)
         {
-
+            
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            query1 = "UPDATE Benutzer.Benutzer Set Status='offline' where Benutzername ='"+user+"';";
+            conn.Open();
+            cmd = new MySqlCommand(query1, conn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            conn.Close();
             Environment.Exit(0);
         }
 

@@ -17,7 +17,7 @@ namespace SW_Projekt
     {
         public string IPneu;
         public string IP;
-
+        public string user;
 
         string query1;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
@@ -26,6 +26,7 @@ namespace SW_Projekt
         MySqlCommand cmd;
         MySqlDataAdapter da;
         DataTable tbl;  //datatable für Abfragenergebnisse
+        chat f1 = new chat();
 
 
         public form1()
@@ -38,22 +39,33 @@ namespace SW_Projekt
 
         private void but_anm_Click(object sender, EventArgs e)
         {
+            
             if (text_anm.Text == "")
             {
                 MessageBox.Show("Bitte einen Benutzernamen eingeben!", "Keine Leerzeichen!", 0, MessageBoxIcon.Exclamation);
             }
             else
             {
+                
                 //status der ausgewählten person auf online setzen
                 query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP()+"' where Benutzername ='"+text_anm.Text+"';";
                 conn.Open();
                 cmd = new MySqlCommand(query1, conn);
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
                 conn.Close();
 
                 Chat.Show();
                 Chat.Text += text_anm.Text;
+                f1.user = text_anm.Text;
                 this.Hide();
+
             }
         }
 
@@ -65,13 +77,27 @@ namespace SW_Projekt
             }
             else
             {
+                
+                query1 = "Insert into Benutzer.Benutzer (Benutzername,IPAdresse,Status) values ('"+text_reg.Text+"','"+getIP()+"','online');";
+                conn.Open();
+                cmd = new MySqlCommand(query1, conn);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    Chat.Show();
+                    Chat.Text += text_reg.Text;
+                    f1.user = text_reg.Text;
+                    this.Hide();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Benutzername schon vorhanden"+ex.ToString());
+                }
+                finally
+                {
+                    conn.Close();
+                }
 
-                getIP();
-
-
-                Chat.Show();
-                Chat.Text += text_reg.Text;
-                this.Hide();
             }
         }
 
