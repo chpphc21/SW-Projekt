@@ -20,7 +20,7 @@ namespace SW_Projekt
 
 
         string query1;
-        string SQLServer = "server = koordinationsleiter.ddns.net; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
+        string SQLServer = "server = 10.0.0.8; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
 
         MySqlConnection conn;
         MySqlCommand cmd;
@@ -48,6 +48,7 @@ namespace SW_Projekt
                 query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP()+"' where Benutzername ='"+text_anm.Text+"';";
                 conn.Open();
                 cmd = new MySqlCommand(query1, conn);
+                cmd.ExecuteNonQuery();
                 conn.Close();
 
                 Chat.Show();
