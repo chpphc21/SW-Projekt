@@ -20,9 +20,9 @@ namespace SW_Projekt
 
 
         string query1;
-        string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
+        string SQLServer = "server = koordinationsleiter.ddns.net; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
 
-        MySqlConnection conn =new MySqlConnection();
+        MySqlConnection conn;
         MySqlCommand cmd;
         MySqlDataAdapter da;
         DataTable tbl;  //datatable für Abfragenergebnisse
@@ -31,6 +31,7 @@ namespace SW_Projekt
         public form1()
         {
             InitializeComponent();
+            conn = new MySqlConnection();
             conn.ConnectionString = SQLServer;
         }
         chat Chat = new chat();
@@ -44,9 +45,9 @@ namespace SW_Projekt
             else
             {
                 //status der ausgewählten person auf online setzen
-                query1 = "UPDATE Benutzer.Benutzer Set Status='online'  where Benutzername ='"+text_anm.Text+"',set IPAdresse='"+getIP()+";";
+                query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP()+"' where Benutzername ='"+text_anm.Text+"';";
                 conn.Open();
-                //cmd = new MySqlCommand(query1, conn);
+                cmd = new MySqlCommand(query1, conn);
                 conn.Close();
 
                 Chat.Show();
@@ -113,10 +114,10 @@ namespace SW_Projekt
                     Environment.Exit(0);
                 }
             }
-            //finally
-            //{
-             //   conn.Close();
-            //}
+            finally
+            {
+                conn.Close();
+            }
 
         }
         public string getIP()
@@ -138,10 +139,10 @@ namespace SW_Projekt
             {
                 throw new Exception();
             }
-            if (IPneu.Contains("10.0.0.")) 
+            if (IPneu.Contains("10.0.0."))
             {
                 int index1 = IPneu.IndexOf("10.0.0.");
-                int index2=10;
+                int index2 = 10;
                 for (int i = index1; i < index1 + 18; i++)
                 {
                     if (IPneu[i] == '%')
@@ -151,11 +152,14 @@ namespace SW_Projekt
                     }
                 }
                 //IP = "10.0.0.";
-                for(int i = index1; i < index2; i++)
+                for (int i = index1; i < index2; i++)
                 {
                     IP += IPneu[i];
                 }
             }
+            else if (!IPneu.Contains("10.0.0."))
+                MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             return IP;
         }
     }
