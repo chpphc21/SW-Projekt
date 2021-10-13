@@ -45,8 +45,7 @@ namespace SW_Projekt
                 MessageBox.Show("Bitte einen Benutzernamen eingeben!", "Keine Leerzeichen!", 0, MessageBoxIcon.Exclamation);
             }
             else
-            {
-                
+            {             
                 //status der ausgewählten person auf online setzen
                 query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP()+"' where Benutzername ='"+text_anm.Text+"';";
                 conn.Open();
