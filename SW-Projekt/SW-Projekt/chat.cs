@@ -16,12 +16,12 @@ namespace SW_Projekt
     {
         //Parameter für die Datenbank
         // Projekt@% Projekt DB:Benutzer
-        
+
         string query1;
         public string user;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
 
-        MySqlConnection conn = new MySqlConnection();
+        MySqlConnection conn2 = new MySqlConnection();
         MySqlCommand cmd;
         MySqlDataAdapter da;
         DataTable tbl;  //datatable für Abfragenergebnisse
@@ -29,6 +29,8 @@ namespace SW_Projekt
         public chat()
         {
             InitializeComponent();
+            conn2 = new MySqlConnection();
+            conn2.ConnectionString = SQLServer;
         }
         private void chat_Load(object sender, EventArgs e)
         {
@@ -36,10 +38,9 @@ namespace SW_Projekt
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            query1 = "UPDATE Benutzer.Benutzer Set Status='offline' where Benutzername ='"+user+"';";
-            conn.Open();
-            cmd = new MySqlCommand(query1, conn);
+            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-mm-dd") + "' where Benutzername ='" + user+"';";
+            conn2.Open();
+            cmd = new MySqlCommand(query1, conn2);
             try
             {
                 cmd.ExecuteNonQuery();
@@ -48,7 +49,7 @@ namespace SW_Projekt
             {
                 MessageBox.Show(ex.ToString());
             }
-            conn.Close();
+            conn2.Close();
             Environment.Exit(0);
         }
 
@@ -95,18 +96,32 @@ namespace SW_Projekt
         private void button1_Click_1(object sender, EventArgs e)
         {
             //Benutzer abrufen bei denen das Feld Status auf online steht
-            query1  =  "select Benutzername from Benutzer where Status='online';";
-            conn.Open();
-            cmd = new MySqlCommand(query1, conn);
-            conn.Close();
-
-            cmd = new MySqlCommand(query1, conn);
-            conn.Open();
+            query1 = "select Benutzername from Benutzer.Benutzer where Status='online';";
+            conn2.Open();
+            cmd = new MySqlCommand(query1, conn2);
             da = new MySqlDataAdapter(cmd);
             tbl = new DataTable();
             da.Fill(tbl);
+            conn2.Close();
+            string record="";
+            #region füllen der benutzer die Online sind
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                DataRow row = tbl.Rows[i];
+                for (int j = 0; j < tbl.Columns.Count; j++)
+                {
+                    if (tbl.Columns[j].ColumnName == "Benutzername")
+                    {
 
-            list_user.Items.Add("User 1");
+                        record += row[j] +"\n";
+                        continue;
+                    }
+                }
+                list_user.Items.Add(record);
+                record  =  "";
+            }
+            
+            #endregion
         }
 
         private void but_auswahl_Click(object sender, EventArgs e)

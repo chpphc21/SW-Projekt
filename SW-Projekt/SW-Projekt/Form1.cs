@@ -26,7 +26,6 @@ namespace SW_Projekt
         MySqlCommand cmd;
         MySqlDataAdapter da;
         DataTable tbl;  //datatable für Abfragenergebnisse
-        chat f1 = new chat();
 
 
         public form1()
@@ -62,7 +61,7 @@ namespace SW_Projekt
 
                 Chat.Show();
                 Chat.Text += text_anm.Text;
-                f1.user = text_anm.Text;
+                Chat.user = text_anm.Text;
                 this.Hide();
 
             }
@@ -85,7 +84,7 @@ namespace SW_Projekt
                     cmd.ExecuteNonQuery();
                     Chat.Show();
                     Chat.Text += text_reg.Text;
-                    f1.user = text_reg.Text;
+                    Chat.user = text_reg.Text;
                     this.Hide();
                 }
                 catch (MySqlException ex)

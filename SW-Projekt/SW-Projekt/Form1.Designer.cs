@@ -45,7 +45,7 @@ namespace SW_Projekt
             // 
             this.text_anm.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.text_anm.Location = new System.Drawing.Point(25, 110);
-            this.text_anm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.text_anm.Margin = new System.Windows.Forms.Padding(4);
             this.text_anm.Name = "text_anm";
             this.text_anm.Size = new System.Drawing.Size(231, 38);
             this.text_anm.TabIndex = 1;
@@ -55,7 +55,7 @@ namespace SW_Projekt
             // 
             this.text_reg.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.text_reg.Location = new System.Drawing.Point(359, 110);
-            this.text_reg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.text_reg.Margin = new System.Windows.Forms.Padding(4);
             this.text_reg.Name = "text_reg";
             this.text_reg.Size = new System.Drawing.Size(231, 38);
             this.text_reg.TabIndex = 2;
@@ -91,7 +91,7 @@ namespace SW_Projekt
             this.but_anm.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.but_anm.ForeColor = System.Drawing.Color.White;
             this.but_anm.Location = new System.Drawing.Point(47, 178);
-            this.but_anm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.but_anm.Margin = new System.Windows.Forms.Padding(4);
             this.but_anm.Name = "but_anm";
             this.but_anm.Size = new System.Drawing.Size(171, 48);
             this.but_anm.TabIndex = 5;
@@ -105,7 +105,7 @@ namespace SW_Projekt
             this.but_reg.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.but_reg.ForeColor = System.Drawing.Color.White;
             this.but_reg.Location = new System.Drawing.Point(376, 178);
-            this.but_reg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.but_reg.Margin = new System.Windows.Forms.Padding(4);
             this.but_reg.Name = "but_reg";
             this.but_reg.Size = new System.Drawing.Size(200, 48);
             this.but_reg.TabIndex = 6;
@@ -160,7 +160,7 @@ namespace SW_Projekt
             this.Controls.Add(this.text_reg);
             this.Controls.Add(this.text_anm);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
