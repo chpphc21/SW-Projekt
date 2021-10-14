@@ -38,7 +38,7 @@ namespace SW_Projekt
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
         {
-            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-mm-dd") + "' where Benutzername ='" + user+"';";
+            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user+"';";
             conn2.Open();
             cmd = new MySqlCommand(query1, conn2);
             try
