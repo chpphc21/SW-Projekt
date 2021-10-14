@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Text;
+using System.Net.Sockets;
 
 namespace SW_Projekt
 {
@@ -26,6 +28,10 @@ namespace SW_Projekt
         MySqlDataAdapter da;
         DataTable tbl;  //datatable für Abfragenergebnisse
         //form1 anm = new form1();
+
+        TcpListener serverSocket = new TcpListener(8888);
+        TcpClient clientSocket = default(TcpClient);
+
         public chat()
         {
             InitializeComponent();
@@ -134,6 +140,7 @@ namespace SW_Projekt
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
+
             }
             catch
             {
