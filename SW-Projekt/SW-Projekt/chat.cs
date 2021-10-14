@@ -143,18 +143,39 @@ namespace SW_Projekt
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
-                query1 = "select IPAdress from Benutzer.Benutzer where Benutzer='" + user +"';";
+                string IP_user2="";
+                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + user +"';";
                 conn2.Open();
                 cmd = new MySqlCommand(query1, conn2);
+                da = new MySqlDataAdapter(cmd);
+                tbl = new DataTable();
+                da.Fill(tbl);
+                conn2.Close();
+                #region füllen der benutzer die Online sind
+                for (int i = 0; i < tbl.Rows.Count; i++)
+                {
+                    DataRow row = tbl.Rows[i];
+                    for (int j = 0; j < tbl.Columns.Count; j++)
+                    {
+                        if (tbl.Columns[j].ColumnName == "IPAdresse")
+                        {
 
+                            IP_user2 += row[i];
+                            continue;
+                        }
+                    }
+
+                }
+
+                #endregion
                 localAddr = IPAddress.Parse(IP_user2);
                 server = new TcpListener(localAddr, 8888);
                 server.Start();
-
+                
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("Bitte einen Benutzer Auswählen!", "Achtung", 0, MessageBoxIcon.Error);
+                MessageBox.Show("Bitte einen Benutzer Auswählen! "+ex, "Achtung", 0, MessageBoxIcon.Error);
             }
 
         }
