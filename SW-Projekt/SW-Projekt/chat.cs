@@ -11,6 +11,8 @@ using System.Net.Sockets;
 using System.Windows.Forms;
 using System.Text;
 using System.Net.Sockets;
+using System.Net;
+using System.IO;
 
 namespace SW_Projekt
 {
@@ -29,8 +31,9 @@ namespace SW_Projekt
         DataTable tbl;  //datatable für Abfragenergebnisse
         //form1 anm = new form1();
 
-        TcpListener serverSocket = new TcpListener(8888);
+        TcpListener server = new TcpListener(8888);
         TcpClient clientSocket = default(TcpClient);
+        IPAddress localAddr = null;
 
         public chat()
         {
@@ -40,7 +43,7 @@ namespace SW_Projekt
         }
         private void chat_Load(object sender, EventArgs e)
         {
-            
+
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -140,6 +143,9 @@ namespace SW_Projekt
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
+                localAddr = IPAddress.Parse(IP_user2);
+                server = new TcpListener(localAddr, 8888);
+                server.Start();
 
             }
             catch
