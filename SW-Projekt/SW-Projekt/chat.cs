@@ -143,6 +143,10 @@ namespace SW_Projekt
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
+                query1 = "select IPAdress from Benutzer.Benutzer where Benutzer='" + user +"';";
+                conn2.Open();
+                cmd = new MySqlCommand(query1, conn2);
+
                 localAddr = IPAddress.Parse(IP_user2);
                 server = new TcpListener(localAddr, 8888);
                 server.Start();
