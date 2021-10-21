@@ -20,7 +20,7 @@ namespace SW_Projekt
         public string user;
 
         string query1;
-        string SQLServer = "server = koordinationsleiter.ddns.net; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
+        string SQLServer = "server = koordinationsleiter.ddns.net; user id = Projekt; password=Projekt; database=Benutzer; sslmode=None; port=3306; persistsecurityinfo=True";
 
         MySqlConnection conn;
         MySqlCommand cmd;
@@ -44,26 +44,40 @@ namespace SW_Projekt
                 MessageBox.Show("Bitte einen Benutzernamen eingeben!", "Keine Leerzeichen!", 0, MessageBoxIcon.Exclamation);
             }
             else
-            {             
-                //status der ausgewählten person auf online setzen
-                query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP()+"' where Benutzername ='"+text_anm.Text+"';";
+            {
+                query1 = "select Benutzername from Benutzer.Benutzer where Benutzername='" + text_anm.Text + "';";
                 conn.Open();
                 cmd = new MySqlCommand(query1, conn);
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+                da = new MySqlDataAdapter(cmd);
+                tbl = new DataTable();
+                da.Fill(tbl);
                 conn.Close();
 
-                Chat.Show();
-                Chat.Text += text_anm.Text;
-                Chat.user = text_anm.Text;
-                this.Hide();
+                if (tbl.Rows[tbl.Rows.Count+1] == null)
+                {
+                    MessageBox.Show("Benutzer nicht gefunden, bitte registrierente registrieren");
+                }   //status der ausgewählten person auf online setzen
 
+                else
+                {
+                    query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP() + "' where Benutzername ='" + text_anm.Text + "';";
+                    conn.Open();
+                    cmd = new MySqlCommand(query1, conn);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                    conn.Close();
+
+                    Chat.Show();
+                    Chat.Text += text_anm.Text;
+                    Chat.user = text_anm.Text;
+                    this.Hide();
+                }
             }
         }
 
@@ -75,27 +89,39 @@ namespace SW_Projekt
             }
             else
             {
-                
-                query1 = "Insert into Benutzer.Benutzer (Benutzername,IPAdresse,Status) values ('"+text_reg.Text+"','"+getIP()+"','online');";
+                query1 = "select Benutzername from Benutzer.Benutzer where Benutzername='" + text_reg.Text + "';";
                 conn.Open();
                 cmd = new MySqlCommand(query1, conn);
-                try
+                da = new MySqlDataAdapter(cmd);
+                tbl = new DataTable();
+                da.Fill(tbl);
+                conn.Close();
+                if (tbl.Rows[tbl.Rows.Count] != null)
                 {
-                    cmd.ExecuteNonQuery();
-                    Chat.Show();
-                    Chat.Text += text_reg.Text;
-                    Chat.user = text_reg.Text;
-                    this.Hide();
-                }
-                catch (MySqlException ex)
+                    MessageBox.Show("Benutzer bereits vorhanden, bitte Anmelden!");
+                }   //status der ausgewählten person auf online setzen
+                else
                 {
-                    MessageBox.Show("Benutzername schon vorhanden"+ex.ToString());
+                    query1 = "Insert into Benutzer.Benutzer (Benutzername,IPAdresse,Status) values ('" + text_reg.Text + "','" + getIP() + "','online');";
+                    conn.Open();
+                    cmd = new MySqlCommand(query1, conn);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        Chat.Show();
+                        Chat.Text += text_reg.Text;
+                        Chat.user = text_reg.Text;
+                        this.Hide();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show("Benutzername schon vorhanden" + ex.ToString());
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
                 }
-                finally
-                {
-                    conn.Close();
-                }
-
             }
         }
 
@@ -119,6 +145,9 @@ namespace SW_Projekt
         {
             try
             {
+                error.Hide();
+                error2.Hide();
+                reload.Hide();
                 conn.Open();
                 farbe.BackColor = Color.FromArgb(0,240,0);
                 label2.ForeColor = Color.FromArgb(0, 240, 0);
@@ -127,17 +156,27 @@ namespace SW_Projekt
             }
             catch
             {
+                text_anm.Hide();
+                text_reg.Hide();
+                but_anm.Hide();
+                but_reg.Hide();
+                lab_anm.Hide();
+                lab_reg.Hide();
                 farbe.BackColor = Color.Red;
                 label2.ForeColor = Color.Red;
                 label2.Text = "Fehlgeschlagen";
-                if (MessageBox.Show("Verbindung zur Datenbank fehlgeschlagen", "Datenbank Fehler", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                {
-                    Application.Restart();
-                }
-                else
-                {
-                    Environment.Exit(0);
-                }
+                error.Show();
+                error2.Show();
+                reload.Show();
+                conn.Close();
+                //if (MessageBox.Show("Verbindung zur Datenbank fehlgeschlagen", "Datenbank Fehler", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                //{
+                //    Application.Restart();
+                //}
+                //else
+                //{
+                //    Environment.Exit(0);
+                //}
             }
             finally
             {
@@ -186,6 +225,11 @@ namespace SW_Projekt
                 MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return IP;
+        }
+
+        private void reload_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 
