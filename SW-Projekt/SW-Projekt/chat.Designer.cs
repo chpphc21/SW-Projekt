@@ -41,6 +41,7 @@ namespace SW_Projekt
             this.lab_status = new System.Windows.Forms.Label();
             this.but_auswahl = new System.Windows.Forms.Button();
             this.lab_auswahl = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Text_chat
@@ -126,7 +127,7 @@ namespace SW_Projekt
             this.but_akt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_akt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.but_akt.ForeColor = System.Drawing.Color.White;
-            this.but_akt.Location = new System.Drawing.Point(485, 260);
+            this.but_akt.Location = new System.Drawing.Point(485, 221);
             this.but_akt.Name = "but_akt";
             this.but_akt.Size = new System.Drawing.Size(141, 33);
             this.but_akt.TabIndex = 8;
@@ -155,10 +156,11 @@ namespace SW_Projekt
             // 
             // but_auswahl
             // 
+            this.but_auswahl.Enabled = false;
             this.but_auswahl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_auswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.but_auswahl.ForeColor = System.Drawing.Color.White;
-            this.but_auswahl.Location = new System.Drawing.Point(485, 221);
+            this.but_auswahl.Location = new System.Drawing.Point(485, 260);
             this.but_auswahl.Name = "but_auswahl";
             this.but_auswahl.Size = new System.Drawing.Size(141, 33);
             this.but_auswahl.TabIndex = 11;
@@ -175,12 +177,26 @@ namespace SW_Projekt
             this.lab_auswahl.Size = new System.Drawing.Size(0, 20);
             this.lab_auswahl.TabIndex = 12;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.textBox1.ForeColor = System.Drawing.Color.DarkGray;
+            this.textBox1.Location = new System.Drawing.Point(318, 102);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(95, 29);
+            this.textBox1.TabIndex = 13;
+            this.textBox1.Text = "Nachricht";
+            // 
             // chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(657, 312);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lab_auswahl);
             this.Controls.Add(this.but_auswahl);
             this.Controls.Add(this.lab_status);
@@ -218,5 +234,6 @@ namespace SW_Projekt
         private System.Windows.Forms.Label lab_status;
         private System.Windows.Forms.Button but_auswahl;
         private System.Windows.Forms.Label lab_auswahl;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

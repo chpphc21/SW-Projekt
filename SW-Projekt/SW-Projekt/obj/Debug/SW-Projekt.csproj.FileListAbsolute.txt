@@ -144,3 +144,4 @@ C:\Users\Florian\Source\Repos\SW-Projekt\SW-Projekt\SW-Projekt\obj\Debug\SW-Proj
 C:\Users\Florian\Source\Repos\SW-Projekt\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.csproj.CopyComplete
 C:\Users\Florian\Source\Repos\SW-Projekt\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.exe
 C:\Users\Florian\Source\Repos\SW-Projekt\SW-Projekt\SW-Projekt\obj\Debug\SW-Projekt.pdb
+C:\CS-Projekte\5.k\Sw-Projekt\SW-Projekt\SW-Projekt\bin\Debug\SimpleTCP.dll

@@ -38,7 +38,7 @@ namespace SW_Projekt
 
         private void but_anm_Click(object sender, EventArgs e)
         {
-            
+
             if (text_anm.Text == "")
             {
                 MessageBox.Show("Bitte einen Benutzernamen eingeben!", "Keine Leerzeichen!", 0, MessageBoxIcon.Exclamation);
@@ -52,14 +52,13 @@ namespace SW_Projekt
                 tbl = new DataTable();
                 da.Fill(tbl);
                 conn.Close();
-
-                if (tbl.Rows[tbl.Rows.Count+1] == null)
+                try
                 {
-                    MessageBox.Show("Benutzer nicht gefunden, bitte registrierente registrieren");
-                }   //status der ausgewählten person auf online setzen
-
-                else
-                {
+                    DataRow row = tbl.Rows[tbl.Rows.Count - 1];
+                    for (int i = 0; i < tbl.Columns.Count; i++)
+                    {
+                        break;
+                    }
                     query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP() + "' where Benutzername ='" + text_anm.Text + "';";
                     conn.Open();
                     cmd = new MySqlCommand(query1, conn);
@@ -78,6 +77,12 @@ namespace SW_Projekt
                     Chat.user = text_anm.Text;
                     this.Hide();
                 }
+                catch
+                {
+                    MessageBox.Show("Benutzer nicht gefunden, bitte registrieren!", "Kein Benutzer gefunden!", 0, MessageBoxIcon.Exclamation);
+                    text_reg.Text = text_anm.Text;
+                    text_anm.Text = "";
+                }   //status der ausgewählten person auf online setzen
             }
         }
 
@@ -85,7 +90,7 @@ namespace SW_Projekt
         {
             if (text_reg.Text == "")
             {
-                MessageBox.Show("Bitte einen Benutzernamen eingeben!", "Keine Leerzeichen!",0,MessageBoxIcon.Exclamation);
+                MessageBox.Show("Bitte einen Benutzernamen eingeben!", "Keine Leerzeichen!", 0, MessageBoxIcon.Exclamation);
             }
             else
             {
@@ -96,31 +101,32 @@ namespace SW_Projekt
                 tbl = new DataTable();
                 da.Fill(tbl);
                 conn.Close();
-                if (tbl.Rows[tbl.Rows.Count] != null)
+
+                try
                 {
-                    MessageBox.Show("Benutzer bereits vorhanden, bitte Anmelden!");
-                }   //status der ausgewählten person auf online setzen
-                else
+                    DataRow row = tbl.Rows[tbl.Rows.Count - 1];
+                    for (int i = 0; i < tbl.Columns.Count; i++)
+                    {
+                        break;
+                    }
+                    MessageBox.Show("Benutzer bereits vorhanden, bitte Anmelden!", "Benutzer bereits gefunden!", 0, MessageBoxIcon.Exclamation);
+                    text_anm.Text = text_reg.Text;
+                    text_reg.Text = "";
+                }
+                catch
                 {
                     query1 = "Insert into Benutzer.Benutzer (Benutzername,IPAdresse,Status) values ('" + text_reg.Text + "','" + getIP() + "','online');";
                     conn.Open();
                     cmd = new MySqlCommand(query1, conn);
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        Chat.Show();
-                        Chat.Text += text_reg.Text;
-                        Chat.user = text_reg.Text;
-                        this.Hide();
-                    }
-                    catch (MySqlException ex)
-                    {
-                        MessageBox.Show("Benutzername schon vorhanden" + ex.ToString());
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
+                    cmd.ExecuteNonQuery();
+                    Chat.Show();
+                    Chat.Text += text_reg.Text;
+                    Chat.user = text_reg.Text;
+                    this.Hide();
+                }
+                finally
+                {
+                    conn.Close();
                 }
             }
         }
@@ -149,7 +155,7 @@ namespace SW_Projekt
                 error2.Hide();
                 reload.Hide();
                 conn.Open();
-                farbe.BackColor = Color.FromArgb(0,240,0);
+                farbe.BackColor = Color.FromArgb(0, 240, 0);
                 label2.ForeColor = Color.FromArgb(0, 240, 0);
                 label2.Text = "Verbunden";
 
@@ -162,6 +168,7 @@ namespace SW_Projekt
                 but_reg.Hide();
                 lab_anm.Hide();
                 lab_reg.Hide();
+                label1.Hide();
                 farbe.BackColor = Color.Red;
                 label2.ForeColor = Color.Red;
                 label2.Text = "Fehlgeschlagen";
@@ -169,14 +176,6 @@ namespace SW_Projekt
                 error2.Show();
                 reload.Show();
                 conn.Close();
-                //if (MessageBox.Show("Verbindung zur Datenbank fehlgeschlagen", "Datenbank Fehler", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                //{
-                //    Application.Restart();
-                //}
-                //else
-                //{
-                //    Environment.Exit(0);
-                //}
             }
             finally
             {
@@ -196,8 +195,8 @@ namespace SW_Projekt
             {
                 if (rg.IsMatch(ip.ToString()))
                 {
-                    IPneu += ip.ToString()+"%";
-                }          
+                    IPneu += ip.ToString() + "%";
+                }
             }
             if (IPneu == "")
             {

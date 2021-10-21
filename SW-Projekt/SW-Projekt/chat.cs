@@ -13,6 +13,7 @@ using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
+using SimpleTCP;
 
 namespace SW_Projekt
 {
@@ -21,6 +22,7 @@ namespace SW_Projekt
         //Parameter für die Datenbank
         // Projekt@% Projekt DB:Benutzer
 
+        string IP_user2 = "";
         string query1;
         public string user;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
@@ -29,11 +31,9 @@ namespace SW_Projekt
         MySqlCommand cmd;
         MySqlDataAdapter da;
         DataTable tbl;  //datatable für Abfragenergebnisse
-        //form1 anm = new form1();
+                        //form1 anm = new form1();
 
-        TcpListener server = new TcpListener(8888);
-        TcpClient clientSocket = default(TcpClient);
-        IPAddress localAddr = null;
+        SimpleTcpClient client;
 
         public chat()
         {
@@ -43,11 +43,21 @@ namespace SW_Projekt
         }
         private void chat_Load(object sender, EventArgs e)
         {
-
+            client = new SimpleTcpClient();
+            client.StringEncoder = Encoding.UTF8;
+            client.DataReceived += Client_DataReceived;
+        }
+        private void Client_DataReceived(object sender, SimpleTCP.Message e)
+        {
+            //Update message to txtStatus
+            textBox1.Invoke((MethodInvoker)delegate ()
+            {
+                textBox1.Text += e.MessageString;
+            });
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
         {
-            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user+"';";
+            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user + "';";
             conn2.Open();
             cmd = new MySqlCommand(query1, conn2);
             try
@@ -66,8 +76,9 @@ namespace SW_Projekt
         {
             if (Text_chat.Text != "Nachricht")
             {
-                chatbox.Items.Add("Du: " + Text_chat.Text + "\n");
-
+                client.Connect("172.168.46.21", 8888);
+                chatbox.Items.Add("Du: " + Text_chat.Text);
+                client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(3));
                 Text_chat.Clear();
                 Text_chat.Focus();
             }
@@ -101,36 +112,43 @@ namespace SW_Projekt
         {
             chatbox.Items.Clear();
         }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
-            //Benutzer abrufen bei denen das Feld Status auf online steht
-            query1 = "select Benutzername from Benutzer.Benutzer where Status='online';";
-            conn2.Open();
-            cmd = new MySqlCommand(query1, conn2);
-            da = new MySqlDataAdapter(cmd);
-            tbl = new DataTable();
-            da.Fill(tbl);
-            conn2.Close();
-            string record="";
-            #region füllen der benutzer die Online sind
-            for (int i = 0; i < tbl.Rows.Count; i++)
+            try
             {
-                DataRow row = tbl.Rows[i];
-                for (int j = 0; j < tbl.Columns.Count; j++)
+                but_auswahl.Enabled = true;
+                //Benutzer abrufen bei denen das Feld Status auf online steht
+                query1 = "select Benutzername from Benutzer.Benutzer where Status='online';";
+                conn2.Open();
+                cmd = new MySqlCommand(query1, conn2);
+                da = new MySqlDataAdapter(cmd);
+                tbl = new DataTable();
+                da.Fill(tbl);
+                conn2.Close();
+                string record = "";
+                #region füllen der benutzer die Online sind
+                for (int i = 0; i < tbl.Rows.Count; i++)
                 {
-                    if (tbl.Columns[j].ColumnName == "Benutzername")
+                    DataRow row = tbl.Rows[i];
+                    for (int j = 0; j < tbl.Columns.Count; j++)
                     {
+                        if (tbl.Columns[j].ColumnName == "Benutzername")
+                        {
 
-                        record += row[j] +"\n";
-                        continue;
+                            record += row[j] + "\n";
+                            continue;
+                        }
                     }
+                    list_user.Items.Add(record);
+                    record = "";
                 }
-                list_user.Items.Add(record);
-                record  =  "";
+
+                #endregion
             }
-            
-            #endregion
+            catch
+            {
+                MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void but_auswahl_Click(object sender, EventArgs e)
@@ -143,8 +161,7 @@ namespace SW_Projekt
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
-                string IP_user2="";
-                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + user +"';";
+                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + user + "';";
                 conn2.Open();
                 cmd = new MySqlCommand(query1, conn2);
                 da = new MySqlDataAdapter(cmd);
@@ -166,16 +183,12 @@ namespace SW_Projekt
                     }
 
                 }
-
                 #endregion
-                localAddr = IPAddress.Parse(IP_user2);
-                server = new TcpListener(localAddr, 8888);
-                server.Start();
-                
+
             }
-            catch(Exception ex)
+            catch
             {
-                MessageBox.Show("Bitte einen Benutzer Auswählen! "+ex, "Achtung", 0, MessageBoxIcon.Error);
+                MessageBox.Show("Bitte einen Benutzer Auswählen! ", "Achtung", 0, MessageBoxIcon.Error);
             }
 
         }
