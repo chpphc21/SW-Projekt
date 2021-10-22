@@ -78,7 +78,8 @@ namespace SW_Projekt
                 //}
                 //if (!e.MessageString.Contains("172.16.46."))
                 //{
-                    chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + e.MessageString);
+                string mes = e.MessageString.Substring(0, e.MessageString.Length - 1);
+                chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + mes);
                 //}
             });
         }
@@ -106,6 +107,7 @@ namespace SW_Projekt
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (Text_chat.Text != "Nachricht")
             {
                 client.Connect(IP_user2, 8888);
@@ -167,7 +169,6 @@ namespace SW_Projekt
                     {
                         if (tbl.Columns[j].ColumnName == "Benutzername")
                         {
-
                             record += row[j] + "\n";
                             continue;
                         }
@@ -193,6 +194,7 @@ namespace SW_Projekt
                 chatbox.Enabled = true;
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
+                dateien.Enabled = true;
                 lab_status.Text = "Chat mit";
                 query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
                 conn2.Open();
@@ -268,6 +270,12 @@ namespace SW_Projekt
 
             return IP;
         }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("ftp://chpolke.ddns.net/h");
+        }
+
         public string newone()
         {
             lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();

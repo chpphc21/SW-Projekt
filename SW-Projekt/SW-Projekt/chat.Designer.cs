@@ -41,6 +41,7 @@ namespace SW_Projekt
             this.lab_status = new System.Windows.Forms.Label();
             this.but_auswahl = new System.Windows.Forms.Button();
             this.lab_auswahl = new System.Windows.Forms.Label();
+            this.dateien = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Text_chat
@@ -75,6 +76,7 @@ namespace SW_Projekt
             // 
             // chatbox
             // 
+            this.chatbox.Enabled = false;
             this.chatbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.chatbox.FormattingEnabled = true;
             this.chatbox.ItemHeight = 16;
@@ -174,12 +176,27 @@ namespace SW_Projekt
             this.lab_auswahl.Size = new System.Drawing.Size(0, 20);
             this.lab_auswahl.TabIndex = 12;
             // 
+            // dateien
+            // 
+            this.dateien.Enabled = false;
+            this.dateien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dateien.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.dateien.ForeColor = System.Drawing.Color.White;
+            this.dateien.Location = new System.Drawing.Point(302, 110);
+            this.dateien.Name = "dateien";
+            this.dateien.Size = new System.Drawing.Size(111, 45);
+            this.dateien.TabIndex = 13;
+            this.dateien.Text = "Dateien";
+            this.dateien.UseVisualStyleBackColor = true;
+            this.dateien.Click += new System.EventHandler(this.button1_Click_2);
+            // 
             // chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(657, 312);
+            this.Controls.Add(this.dateien);
             this.Controls.Add(this.lab_auswahl);
             this.Controls.Add(this.but_auswahl);
             this.Controls.Add(this.lab_status);
@@ -217,5 +234,6 @@ namespace SW_Projekt
         private System.Windows.Forms.Label lab_status;
         private System.Windows.Forms.Button but_auswahl;
         private System.Windows.Forms.Label lab_auswahl;
+        private System.Windows.Forms.Button dateien;
     }
 }
