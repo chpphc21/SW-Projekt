@@ -27,6 +27,9 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
+        //public string deineIP = "172.16.46.";
+        public string deineIP = "192.168.56.";
+
         string query1;
         public string user;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
@@ -228,7 +231,7 @@ namespace SW_Projekt
             }
 
         }
-        public string getIP()
+        private string getIP()
         {
             string pattern = @"\b[10.0.0.]\w+";
             String strHostName = string.Empty;
@@ -247,9 +250,9 @@ namespace SW_Projekt
             {
                 throw new Exception();
             }
-            if (IPneu.Contains("172.16.46."))
+            if (IPneu.Contains(deineIP))
             {
-                int index1 = IPneu.IndexOf("172.16.46.");
+                int index1 = IPneu.IndexOf(deineIP);
                 int index2 = 10;
                 for (int i = index1; i < index1 + 18; i++)
                 {
@@ -265,7 +268,7 @@ namespace SW_Projekt
                     IP += IPneu[i];
                 }
             }
-            else if (!IPneu.Contains("172.16.46."))
+            else if (!IPneu.Contains(deineIP))
                 MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return IP;
@@ -273,7 +276,8 @@ namespace SW_Projekt
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("ftp://chpolke.ddns.net/h");
+            file1.InitialDirectory= "ftp://SW-Projekt:@chpolke.ddns.net";
+            file1.ShowDialog();
         }
 
         public string newone()

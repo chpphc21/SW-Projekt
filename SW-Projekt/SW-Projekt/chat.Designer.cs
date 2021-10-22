@@ -42,6 +42,7 @@ namespace SW_Projekt
             this.but_auswahl = new System.Windows.Forms.Button();
             this.lab_auswahl = new System.Windows.Forms.Label();
             this.dateien = new System.Windows.Forms.Button();
+            this.file1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // Text_chat
@@ -190,6 +191,10 @@ namespace SW_Projekt
             this.dateien.UseVisualStyleBackColor = true;
             this.dateien.Click += new System.EventHandler(this.button1_Click_2);
             // 
+            // file1
+            // 
+            this.file1.FileName = "openFileDialog1";
+            // 
             // chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,5 +240,6 @@ namespace SW_Projekt
         private System.Windows.Forms.Button but_auswahl;
         private System.Windows.Forms.Label lab_auswahl;
         private System.Windows.Forms.Button dateien;
+        private System.Windows.Forms.OpenFileDialog file1;
     }
 }

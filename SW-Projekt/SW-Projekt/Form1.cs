@@ -181,9 +181,8 @@ namespace SW_Projekt
             {
                 conn.Close();
             }
-
         }
-        public string getIP()
+        private string getIP()
         {
             string pattern = @"\b[10.0.0.]\w+";
             Regex rg = new Regex(pattern);
@@ -202,9 +201,9 @@ namespace SW_Projekt
             {
                 throw new Exception();
             }
-            if (IPneu.Contains("172.16.46."))
+            if (IPneu.Contains(Chat.deineIP))
             {
-                int index1 = IPneu.IndexOf("172.16.46.");
+                int index1 = IPneu.IndexOf(Chat.deineIP);
                 int index2 = 10;
                 for (int i = index1; i < index1 + 18; i++)
                 {
@@ -220,7 +219,7 @@ namespace SW_Projekt
                     IP += IPneu[i];
                 }
             }
-            else if (!IPneu.Contains("172.16.46."))
+            else if (!IPneu.Contains(Chat.deineIP))
                 MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return IP;
