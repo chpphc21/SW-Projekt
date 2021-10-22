@@ -34,6 +34,7 @@ namespace SW_Projekt
                         //form1 anm = new form1();
 
         SimpleTcpClient client;
+        SimpleTcpServer server;
 
         public chat()
         {
@@ -46,13 +47,23 @@ namespace SW_Projekt
             client = new SimpleTcpClient();
             client.StringEncoder = Encoding.UTF8;
             client.DataReceived += Client_DataReceived;
+
+            server = new SimpleTcpServer();
+            server.Delimiter = 0x13;//enter
+            server.StringEncoder = Encoding.UTF8;
+            server.DataReceived += Server_DataReceived;
         }
         private void Client_DataReceived(object sender, SimpleTCP.Message e)
         {
-            //Update message to txtStatus
-            textBox1.Invoke((MethodInvoker)delegate ()
+
+        }
+        private void Server_DataReceived(object sender, SimpleTCP.Message e)
+        {
+            //Update mesage to txtStatus
+            chatbox.Invoke((MethodInvoker)delegate ()
             {
-                textBox1.Text += e.MessageString;
+                chatbox.Text += lab_auswahl.Text.Replace("\n", "") + ": " + e.MessageString;
+                e.ReplyLine(string.Format("You said: {0}", e.MessageString));
             });
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
@@ -69,18 +80,23 @@ namespace SW_Projekt
                 MessageBox.Show(ex.ToString());
             }
             conn2.Close();
+
+            if (server.IsStarted)
+                server.Stop();
+
             Environment.Exit(0);
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (Text_chat.Text != "Nachricht")
             {
-                client.Connect("172.168.46.21", 8888);
+                client.Connect(IP_user2, 8888);
                 chatbox.Items.Add("Du: " + Text_chat.Text);
                 client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(3));
                 Text_chat.Clear();
-                Text_chat.Focus();
+                Text_chat.Focus(); 
             }
         }
 
@@ -116,6 +132,7 @@ namespace SW_Projekt
         {
             try
             {
+                list_user.Items.Clear();
                 but_auswahl.Enabled = true;
                 //Benutzer abrufen bei denen das Feld Status auf online steht
                 query1 = "select Benutzername from Benutzer.Benutzer where Status='online';";
@@ -161,14 +178,14 @@ namespace SW_Projekt
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
-                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + user + "';";
+                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
                 conn2.Open();
                 cmd = new MySqlCommand(query1, conn2);
                 da = new MySqlDataAdapter(cmd);
                 tbl = new DataTable();
                 da.Fill(tbl);
                 conn2.Close();
-                #region füllen der benutzer die Online sind
+                #region IP Adresse suchen
                 for (int i = 0; i < tbl.Rows.Count; i++)
                 {
                     DataRow row = tbl.Rows[i];
@@ -181,7 +198,6 @@ namespace SW_Projekt
                             continue;
                         }
                     }
-
                 }
                 #endregion
 
