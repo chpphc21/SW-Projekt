@@ -75,7 +75,6 @@ namespace SW_Projekt
             // 
             // chatbox
             // 
-            this.chatbox.Enabled = false;
             this.chatbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.chatbox.FormattingEnabled = true;
             this.chatbox.ItemHeight = 16;

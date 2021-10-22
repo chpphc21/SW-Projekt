@@ -14,6 +14,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using SimpleTCP;
+using System.Text.RegularExpressions;
 
 namespace SW_Projekt
 {
@@ -22,7 +23,10 @@ namespace SW_Projekt
         //Parameter für die Datenbank
         // Projekt@% Projekt DB:Benutzer
 
+
+        string IP, IPneu;
         string IP_user2 = "";
+        string IP_3;
         string query1;
         public string user;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
@@ -52,6 +56,9 @@ namespace SW_Projekt
             server.Delimiter = 0x13;//enter
             server.StringEncoder = Encoding.UTF8;
             server.DataReceived += Server_DataReceived;
+
+            System.Net.IPAddress ip = System.Net.IPAddress.Parse(getIP());
+            server.Start(ip, Convert.ToInt32(8888));
         }
         private void Client_DataReceived(object sender, SimpleTCP.Message e)
         {
@@ -62,8 +69,17 @@ namespace SW_Projekt
             //Update mesage to txtStatus
             chatbox.Invoke((MethodInvoker)delegate ()
             {
-                chatbox.Text += lab_auswahl.Text.Replace("\n", "") + ": " + e.MessageString;
-                e.ReplyLine(string.Format("You said: {0}", e.MessageString));
+                //e.ReplyLine(string.Format(e.MessageString));
+                e.MessageString.Replace("[]", "");
+                if (e.MessageString.Contains("172.16.46."))
+                {
+                    IP_3 = e.MessageString;
+                    newone();
+                }
+                if (!e.MessageString.Contains("172.16.46."))
+                {
+                    chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + e.MessageString);
+                }
             });
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
@@ -96,7 +112,7 @@ namespace SW_Projekt
                 chatbox.Items.Add("Du: " + Text_chat.Text);
                 client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(3));
                 Text_chat.Clear();
-                Text_chat.Focus(); 
+                Text_chat.Focus();
             }
         }
 
@@ -201,6 +217,8 @@ namespace SW_Projekt
                 }
                 #endregion
 
+                client.Connect(IP_user2, 8888);
+                client.WriteLineAndGetReply(getIP(), TimeSpan.FromSeconds(3));
             }
             catch
             {
@@ -208,5 +226,81 @@ namespace SW_Projekt
             }
 
         }
+        public string getIP()
+        {
+            string pattern = @"\b[10.0.0.]\w+";
+            String strHostName = string.Empty;
+            Regex rg = new Regex(pattern);
+            strHostName = Dns.GetHostName();
+            IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
+            IPAddress[] addr = ipEntry.AddressList;
+            foreach (IPAddress ip in addr)
+            {
+                if (rg.IsMatch(ip.ToString()))
+                {
+                    IPneu += ip.ToString() + "%";
+                }
+            }
+            if (IPneu == "")
+            {
+                throw new Exception();
+            }
+            if (IPneu.Contains("172.16.46."))
+            {
+                int index1 = IPneu.IndexOf("172.16.46.");
+                int index2 = 10;
+                for (int i = index1; i < index1 + 18; i++)
+                {
+                    if (IPneu[i] == '%')
+                    {
+                        index2 = i;
+                        break;
+                    }
+                }
+                //IP = "10.0.0.";
+                for (int i = index1; i < index2; i++)
+                {
+                    IP += IPneu[i];
+                }
+            }
+            else if (!IPneu.Contains("172.16.46."))
+                MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return IP;
+        }
+        public string newone()
+        {
+            lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
+            Text_chat.Enabled = true;
+            chatbox.Enabled = true;
+            but_senden.Enabled = true;
+            but_ver.Enabled = true;
+            lab_status.Text = "Chat mit";
+
+            query1 = "select IPAdresse from Benutzer.Benutzer where IPAdresse='" + IP_3 + "';";
+            conn2.Open();
+            cmd = new MySqlCommand(query1, conn2);
+            da = new MySqlDataAdapter(cmd);
+            tbl = new DataTable();
+            da.Fill(tbl);
+            conn2.Close();
+            #region IP Adresse suchen
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                DataRow row = tbl.Rows[i];
+                for (int j = 0; j < tbl.Columns.Count; j++)
+                {
+                    if (tbl.Columns[j].ColumnName == "Benutzername")
+                    {
+
+                        lab_auswahl.Text += row[i];
+                        continue;
+                    }
+                }
+            }
+            return "0";
+            #endregion
+        }
+
     }
 }
