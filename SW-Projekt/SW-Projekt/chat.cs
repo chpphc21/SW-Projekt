@@ -71,15 +71,15 @@ namespace SW_Projekt
             {
                 //e.ReplyLine(string.Format(e.MessageString));
                 e.MessageString.Replace("[]", "");
-                if (e.MessageString.Contains("172.16.46."))
-                {
-                    IP_3 = e.MessageString;
-                    newone();
-                }
-                if (!e.MessageString.Contains("172.16.46."))
-                {
+                //if (e.MessageString.Contains("172.16.46."))
+                //{
+                //    IP_3 = System.Net.IPAddress.Parse(e.MessageString).ToString();
+                //    newone();
+                //}
+                //if (!e.MessageString.Contains("172.16.46."))
+                //{
                     chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + e.MessageString);
-                }
+                //}
             });
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
@@ -217,8 +217,8 @@ namespace SW_Projekt
                 }
                 #endregion
 
-                client.Connect(IP_user2, 8888);
-                client.WriteLineAndGetReply(getIP(), TimeSpan.FromSeconds(3));
+                //client.Connect(IP_user2, 8888);
+                //client.WriteLineAndGetReply(getIP(), TimeSpan.FromSeconds(3));
             }
             catch
             {

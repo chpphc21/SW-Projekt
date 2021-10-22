@@ -154,7 +154,6 @@ namespace SW_Projekt
             // 
             // but_auswahl
             // 
-            this.but_auswahl.Enabled = false;
             this.but_auswahl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_auswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.but_auswahl.ForeColor = System.Drawing.Color.White;
