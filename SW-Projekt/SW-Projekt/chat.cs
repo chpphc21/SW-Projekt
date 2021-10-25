@@ -27,8 +27,8 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
-        //public string deineIP = "172.16.46.";
-        public string deineIP = "192.168.56.";
+        public string deineIP = "172.16.46.";
+        //public string deineIP = "192.168.56.";
 
         string query1;
         public string user;
@@ -276,6 +276,7 @@ namespace SW_Projekt
 
         private void button1_Click_2(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             file1.InitialDirectory= "ftp://SW-Projekt:@chpolke.ddns.net";
             file1.ShowDialog();
         }
