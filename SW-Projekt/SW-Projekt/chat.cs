@@ -126,6 +126,7 @@ namespace SW_Projekt
                     MessageBox.Show("Es gab einen Fehler beim senden der Nachricht", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            Cursor.Current = Cursors.Default;
         }
 
         private void Text_chat_KeyDown(object sender, KeyEventArgs e)
@@ -228,7 +229,6 @@ namespace SW_Projekt
                     }
                 }
                 #endregion
-                MessageBox.Show(IP_user2);
             }
             catch
             {
