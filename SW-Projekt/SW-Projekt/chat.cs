@@ -113,11 +113,18 @@ namespace SW_Projekt
             Cursor.Current = Cursors.WaitCursor;
             if (Text_chat.Text != "Nachricht")
             {
-                client.Connect(IP_user2, 8888);
-                chatbox.Items.Add("Du: " + Text_chat.Text);
-                client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(3));
-                Text_chat.Clear();
-                Text_chat.Focus();
+                try
+                {
+                    client.Connect(IP_user2, 8888);
+                    chatbox.Items.Add("Du: " + Text_chat.Text);
+                    client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(0));
+                    Text_chat.Clear();
+                    Text_chat.Focus();
+                }
+                catch
+                {
+                    MessageBox.Show("Es gab einen Fehler beim senden der Nachricht", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -221,9 +228,7 @@ namespace SW_Projekt
                     }
                 }
                 #endregion
-
-                //client.Connect(IP_user2, 8888);
-                //client.WriteLineAndGetReply(getIP(), TimeSpan.FromSeconds(3));
+                MessageBox.Show(IP_user2);
             }
             catch
             {
