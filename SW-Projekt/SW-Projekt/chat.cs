@@ -27,7 +27,7 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
-        public string deineIP = "172.16.46.";
+        public string deineIP = "172.16.48.";
         //public string deineIP = "192.168.56.";
 
         string query1;
