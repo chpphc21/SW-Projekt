@@ -83,6 +83,7 @@ namespace SW_Projekt
                 //{
                 string mes = e.MessageString.Substring(0, e.MessageString.Length - 1);
                 chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + mes);
+                chatbox.SelectedIndex = chatbox.Items.Count - 1;
                 //}
             });
         }
@@ -120,6 +121,7 @@ namespace SW_Projekt
                     client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(0));
                     Text_chat.Clear();
                     Text_chat.Focus();
+                    chatbox.SelectedIndex = chatbox.Items.Count - 1;
                 }
                 catch
                 {
