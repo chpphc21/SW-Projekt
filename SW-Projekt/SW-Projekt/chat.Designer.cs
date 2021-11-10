@@ -78,10 +78,10 @@ namespace SW_Projekt
             // chatbox
             // 
             this.chatbox.Enabled = false;
-            this.chatbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.chatbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.chatbox.FormattingEnabled = true;
             this.chatbox.HorizontalScrollbar = true;
-            this.chatbox.ItemHeight = 24;
+            this.chatbox.ItemHeight = 20;
             this.chatbox.Location = new System.Drawing.Point(22, 45);
             this.chatbox.Name = "chatbox";
             this.chatbox.Size = new System.Drawing.Size(318, 244);

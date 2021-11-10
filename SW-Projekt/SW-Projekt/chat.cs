@@ -112,7 +112,23 @@ namespace SW_Projekt
 
         private void button1_Click(object sender, EventArgs e)
         {
+            #region disses
+            string[] disses = new string[9];
+            disses[0] = "Du Hurensohn ich hoffe du stirbst an einem Autounfall amk.";
+            disses[1] = "Wenn ich dich ned erwisch dann dei Mutter";
+            disses[2] = "Du Hurensohn";
+            disses[3] = "Deine Mama is so dumm sie stolpert übers Wlan kabel";
+            disses[4] = "Das einzige mal das du groß rausgekommen bist war bei deiner Geburt";
+            disses[5] = "Um deine Mutter zu umfahren muss man 3 mal tanken";
             Cursor.Current = Cursors.WaitCursor;
+            if (Text_chat.Text == "/diss")
+            {
+                Random i = new Random();
+                int rnd = i.Next(0,5);
+                Text_chat.Text = disses[rnd];
+            }
+            #endregion
+
             if (Text_chat.Text != "Nachricht")
             {
                 try
