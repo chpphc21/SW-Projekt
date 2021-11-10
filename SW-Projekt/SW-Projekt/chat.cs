@@ -27,7 +27,7 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
-        public string deineIP = "172.16.48.";
+        public string deineIP = "192.168.45.";
         //public string deineIP = "192.168.56.";
 
         string query1;
@@ -51,6 +51,7 @@ namespace SW_Projekt
         }
         private void chat_Load(object sender, EventArgs e)
         {
+            but_akt.PerformClick();
             client = new SimpleTcpClient();
             client.StringEncoder = Encoding.UTF8;
             client.DataReceived += Client_DataReceived;
@@ -276,7 +277,7 @@ namespace SW_Projekt
                 }
             }
             else if (!IPneu.Contains(deineIP))
-                MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Netzwerk fehler", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return IP;
         }
@@ -286,6 +287,46 @@ namespace SW_Projekt
             Cursor.Current = Cursors.WaitCursor;
             file1.InitialDirectory= "ftp://SW-Projekt:@chpolke.ddns.net";
             file1.ShowDialog();
+        }
+
+        private void list_user_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
+                Text_chat.Enabled = true;
+                chatbox.Enabled = true;
+                but_senden.Enabled = true;
+                but_ver.Enabled = true;
+                dateien.Enabled = true;
+                lab_status.Text = "Chat mit";
+                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
+                conn2.Open();
+                cmd = new MySqlCommand(query1, conn2);
+                da = new MySqlDataAdapter(cmd);
+                tbl = new DataTable();
+                da.Fill(tbl);
+                conn2.Close();
+                #region IP Adresse suchen
+                for (int i = 0; i < tbl.Rows.Count; i++)
+                {
+                    DataRow row = tbl.Rows[i];
+                    for (int j = 0; j < tbl.Columns.Count; j++)
+                    {
+                        if (tbl.Columns[j].ColumnName == "IPAdresse")
+                        {
+
+                            IP_user2 += row[i];
+                            continue;
+                        }
+                    }
+                }
+                #endregion
+            }
+            catch
+            {
+                MessageBox.Show("Bitte einen Benutzer Auswählen! ", "Achtung", 0, MessageBoxIcon.Error);
+            }
         }
 
         public string newone()

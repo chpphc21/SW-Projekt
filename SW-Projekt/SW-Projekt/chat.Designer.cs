@@ -50,11 +50,11 @@ namespace SW_Projekt
             this.Text_chat.BackColor = System.Drawing.Color.White;
             this.Text_chat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Text_chat.Enabled = false;
-            this.Text_chat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.Text_chat.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.Text_chat.ForeColor = System.Drawing.Color.DarkGray;
-            this.Text_chat.Location = new System.Drawing.Point(22, 259);
+            this.Text_chat.Location = new System.Drawing.Point(22, 342);
             this.Text_chat.Name = "Text_chat";
-            this.Text_chat.Size = new System.Drawing.Size(247, 29);
+            this.Text_chat.Size = new System.Drawing.Size(318, 32);
             this.Text_chat.TabIndex = 0;
             this.Text_chat.Text = "Nachricht";
             this.Text_chat.Enter += new System.EventHandler(this.Text_chat_Enter);
@@ -65,11 +65,11 @@ namespace SW_Projekt
             // 
             this.but_senden.Enabled = false;
             this.but_senden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.but_senden.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.but_senden.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.but_senden.ForeColor = System.Drawing.Color.White;
-            this.but_senden.Location = new System.Drawing.Point(302, 248);
+            this.but_senden.Location = new System.Drawing.Point(376, 308);
             this.but_senden.Name = "but_senden";
-            this.but_senden.Size = new System.Drawing.Size(111, 45);
+            this.but_senden.Size = new System.Drawing.Size(127, 57);
             this.but_senden.TabIndex = 1;
             this.but_senden.Text = "Senden";
             this.but_senden.UseVisualStyleBackColor = true;
@@ -78,13 +78,13 @@ namespace SW_Projekt
             // chatbox
             // 
             this.chatbox.Enabled = false;
-            this.chatbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.chatbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.chatbox.FormattingEnabled = true;
             this.chatbox.HorizontalScrollbar = true;
-            this.chatbox.ItemHeight = 16;
+            this.chatbox.ItemHeight = 24;
             this.chatbox.Location = new System.Drawing.Point(22, 45);
             this.chatbox.Name = "chatbox";
-            this.chatbox.Size = new System.Drawing.Size(247, 164);
+            this.chatbox.Size = new System.Drawing.Size(318, 244);
             this.chatbox.TabIndex = 3;
             // 
             // but_ver
@@ -93,9 +93,9 @@ namespace SW_Projekt
             this.but_ver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.but_ver.ForeColor = System.Drawing.Color.White;
-            this.but_ver.Location = new System.Drawing.Point(22, 215);
+            this.but_ver.Location = new System.Drawing.Point(22, 295);
             this.but_ver.Name = "but_ver";
-            this.but_ver.Size = new System.Drawing.Size(247, 29);
+            this.but_ver.Size = new System.Drawing.Size(318, 29);
             this.but_ver.TabIndex = 4;
             this.but_ver.Text = "Verlauf löschen";
             this.but_ver.UseVisualStyleBackColor = true;
@@ -106,7 +106,7 @@ namespace SW_Projekt
             this.lab_user.AutoSize = true;
             this.lab_user.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lab_user.ForeColor = System.Drawing.Color.White;
-            this.lab_user.Location = new System.Drawing.Point(481, 10);
+            this.lab_user.Location = new System.Drawing.Point(573, 12);
             this.lab_user.Name = "lab_user";
             this.lab_user.Size = new System.Drawing.Size(145, 24);
             this.lab_user.TabIndex = 5;
@@ -116,22 +116,23 @@ namespace SW_Projekt
             // 
             this.list_user.BackColor = System.Drawing.Color.White;
             this.list_user.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.list_user.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.list_user.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.list_user.FormattingEnabled = true;
-            this.list_user.ItemHeight = 24;
-            this.list_user.Location = new System.Drawing.Point(485, 45);
+            this.list_user.ItemHeight = 29;
+            this.list_user.Location = new System.Drawing.Point(570, 47);
             this.list_user.Name = "list_user";
-            this.list_user.Size = new System.Drawing.Size(141, 170);
+            this.list_user.Size = new System.Drawing.Size(169, 234);
             this.list_user.TabIndex = 7;
+            this.list_user.DoubleClick += new System.EventHandler(this.list_user_DoubleClick);
             // 
             // but_akt
             // 
             this.but_akt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_akt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.but_akt.ForeColor = System.Drawing.Color.White;
-            this.but_akt.Location = new System.Drawing.Point(485, 221);
+            this.but_akt.Location = new System.Drawing.Point(570, 290);
             this.but_akt.Name = "but_akt";
-            this.but_akt.Size = new System.Drawing.Size(141, 33);
+            this.but_akt.Size = new System.Drawing.Size(169, 34);
             this.but_akt.TabIndex = 8;
             this.but_akt.Text = "Aktualisieren";
             this.but_akt.UseVisualStyleBackColor = true;
@@ -140,9 +141,9 @@ namespace SW_Projekt
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(446, 16);
+            this.label1.Location = new System.Drawing.Point(538, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2, 280);
+            this.label1.Size = new System.Drawing.Size(2, 350);
             this.label1.TabIndex = 9;
             // 
             // lab_status
@@ -161,9 +162,9 @@ namespace SW_Projekt
             this.but_auswahl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_auswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.but_auswahl.ForeColor = System.Drawing.Color.White;
-            this.but_auswahl.Location = new System.Drawing.Point(485, 260);
+            this.but_auswahl.Location = new System.Drawing.Point(570, 331);
             this.but_auswahl.Name = "but_auswahl";
-            this.but_auswahl.Size = new System.Drawing.Size(141, 33);
+            this.but_auswahl.Size = new System.Drawing.Size(169, 34);
             this.but_auswahl.TabIndex = 11;
             this.but_auswahl.Text = "Auswählen";
             this.but_auswahl.UseVisualStyleBackColor = true;
@@ -182,11 +183,11 @@ namespace SW_Projekt
             // 
             this.dateien.Enabled = false;
             this.dateien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dateien.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.dateien.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.dateien.ForeColor = System.Drawing.Color.White;
-            this.dateien.Location = new System.Drawing.Point(302, 110);
+            this.dateien.Location = new System.Drawing.Point(376, 116);
             this.dateien.Name = "dateien";
-            this.dateien.Size = new System.Drawing.Size(111, 45);
+            this.dateien.Size = new System.Drawing.Size(127, 45);
             this.dateien.TabIndex = 13;
             this.dateien.Text = "Dateien";
             this.dateien.UseVisualStyleBackColor = true;
@@ -200,8 +201,9 @@ namespace SW_Projekt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(657, 312);
+            this.ClientSize = new System.Drawing.Size(759, 389);
             this.Controls.Add(this.dateien);
             this.Controls.Add(this.lab_auswahl);
             this.Controls.Add(this.but_auswahl);

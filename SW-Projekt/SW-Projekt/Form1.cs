@@ -172,6 +172,7 @@ namespace SW_Projekt
                 farbe.BackColor = Color.Red;
                 label2.ForeColor = Color.Red;
                 label2.Text = "Fehlgeschlagen";
+                label2.Left = 160;
                 error.Show();
                 error2.Show();
                 reload.Show();
@@ -197,6 +198,7 @@ namespace SW_Projekt
                     IPneu += ip.ToString() + "%";
                 }
             }
+            //MessageBox.Show(IPneu);
             if (IPneu == "")
             {
                 throw new Exception();
@@ -220,7 +222,7 @@ namespace SW_Projekt
                 }
             }
             else if (!IPneu.Contains(Chat.deineIP))
-                MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Netzwerk fehler", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return IP;
         }
