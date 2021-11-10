@@ -10,6 +10,7 @@ using System.Net;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace SW_Projekt
 {
@@ -59,7 +60,7 @@ namespace SW_Projekt
                     {
                         break;
                     }
-                    query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + getIP() + "' where Benutzername ='" + text_anm.Text + "';";
+                    query1 = "UPDATE Benutzer.Benutzer Set Status='online',IPAdresse='" + Chat.getIP() + "' where Benutzername ='" + text_anm.Text + "';";
                     conn.Open();
                     cmd = new MySqlCommand(query1, conn);
                     try
@@ -115,7 +116,7 @@ namespace SW_Projekt
                 }
                 catch
                 {
-                    query1 = "Insert into Benutzer.Benutzer (Benutzername,IPAdresse,Status) values ('" + text_reg.Text + "','" + getIP() + "','online');";
+                    query1 = "Insert into Benutzer.Benutzer (Benutzername,IPAdresse,Status) values ('" + text_reg.Text + "','" + Chat.getIP() + "','online');";
                     conn.Open();
                     cmd = new MySqlCommand(query1, conn);
                     cmd.ExecuteNonQuery();
@@ -183,50 +184,6 @@ namespace SW_Projekt
                 conn.Close();
             }
         }
-        private string getIP()
-        {
-            string pattern = @"\b[10.0.0.]\w+";
-            Regex rg = new Regex(pattern);
-            String strHostName = string.Empty;
-            strHostName = Dns.GetHostName();
-            IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
-            IPAddress[] addr = ipEntry.AddressList;
-            foreach (IPAddress ip in addr)
-            {
-                if (rg.IsMatch(ip.ToString()))
-                {
-                    IPneu += ip.ToString() + "%";
-                }
-            }
-            //MessageBox.Show(IPneu);
-            if (IPneu == "")
-            {
-                throw new Exception();
-            }
-            if (IPneu.Contains(Chat.deineIP))
-            {
-                int index1 = IPneu.IndexOf(Chat.deineIP);
-                int index2 = 10;
-                for (int i = index1; i < index1 + 18; i++)
-                {
-                    if (IPneu[i] == '%')
-                    {
-                        index2 = i;
-                        break;
-                    }
-                }
-                //IP = "10.0.0.";
-                for (int i = index1; i < index2; i++)
-                {
-                    IP += IPneu[i];
-                }
-            }
-            else if (!IPneu.Contains(Chat.deineIP))
-                MessageBox.Show("Netzwerk fehler", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            return IP;
-        }
-
         private void reload_Click(object sender, EventArgs e)
         {
             Application.Restart();

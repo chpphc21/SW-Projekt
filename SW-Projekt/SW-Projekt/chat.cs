@@ -15,6 +15,7 @@ using System.Net;
 using System.IO;
 using SimpleTCP;
 using System.Text.RegularExpressions;
+using System.Net.NetworkInformation;
 
 namespace SW_Projekt
 {
@@ -60,9 +61,16 @@ namespace SW_Projekt
             server.Delimiter = 0x13;//enter
             server.StringEncoder = Encoding.UTF8;
             server.DataReceived += Server_DataReceived;
+            try
+            {
+                System.Net.IPAddress ip = System.Net.IPAddress.Parse(getIP());
+                server.Start(ip, Convert.ToInt32(8888));
+            }
+            catch
+            {
+                MessageBox.Show("Es gab einen Fehler bei der IP-adressen Übermittlung", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            System.Net.IPAddress ip = System.Net.IPAddress.Parse(getIP());
-            server.Start(ip, Convert.ToInt32(8888));
         }
         private void Client_DataReceived(object sender, SimpleTCP.Message e)
         {
@@ -124,7 +132,7 @@ namespace SW_Projekt
             if (Text_chat.Text == "/diss")
             {
                 Random i = new Random();
-                int rnd = i.Next(0,5);
+                int rnd = i.Next(0, 5);
                 Text_chat.Text = disses[rnd];
             }
             #endregion
@@ -143,6 +151,7 @@ namespace SW_Projekt
                 catch
                 {
                     MessageBox.Show("Es gab einen Fehler beim senden der Nachricht", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                 }
             }
             Cursor.Current = Cursors.Default;
@@ -255,8 +264,22 @@ namespace SW_Projekt
             }
 
         }
-        private string getIP()
+        public string getIP()
         {
+            //String address = "";
+            //WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
+            //using (WebResponse response = request.GetResponse())
+            //using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+            //{
+            //    address = stream.ReadToEnd();
+            //}
+            //int first = address.IndexOf("Address: ") + 9;
+            //int last = address.LastIndexOf("</body>");
+            //address = address.Substring(first, last - first);
+
+            //MessageBox.Show(address);
+            //return address;
+
             string pattern = @"\b[10.0.0.]\w+";
             String strHostName = string.Empty;
             Regex rg = new Regex(pattern);
@@ -292,17 +315,45 @@ namespace SW_Projekt
                     IP += IPneu[i];
                 }
             }
-            else if (!IPneu.Contains(deineIP))
-                MessageBox.Show("Netzwerk fehler", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //else if (!IPneu.Contains(deineIP))
+            //    MessageBox.Show("Netzwerk fehler", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return IP;
         }
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            file1.InitialDirectory= "ftp://SW-Projekt:@chpolke.ddns.net";
-            file1.ShowDialog();
+            bool pingable = false;
+            Ping pinger = null;
+
+            try
+            {
+                pinger = new Ping();
+                PingReply reply = pinger.Send("ftp://SW-Projekt:@chpolke.ddns.net");
+                pingable = reply.Status == IPStatus.Success;
+            }
+            catch (PingException)
+            {
+
+            }
+            finally
+            {
+                if (pinger != null)
+                {
+                    pinger.Dispose();
+                }
+            }
+            if (pingable)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                file1.InitialDirectory = "ftp://SW-Projekt:@chpolke.ddns.net";
+                file1.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Es gab einen Fehler bei der Serververbindung", "Keine Antwort", 0, MessageBoxIcon.Error);
+            }
+
         }
 
         private void list_user_DoubleClick(object sender, EventArgs e)
@@ -344,40 +395,5 @@ namespace SW_Projekt
                 MessageBox.Show("Bitte einen Benutzer Auswählen! ", "Achtung", 0, MessageBoxIcon.Error);
             }
         }
-
-        public string newone()
-        {
-            lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
-            Text_chat.Enabled = true;
-            chatbox.Enabled = true;
-            but_senden.Enabled = true;
-            but_ver.Enabled = true;
-            lab_status.Text = "Chat mit";
-
-            query1 = "select IPAdresse from Benutzer.Benutzer where IPAdresse='" + IP_3 + "';";
-            conn2.Open();
-            cmd = new MySqlCommand(query1, conn2);
-            da = new MySqlDataAdapter(cmd);
-            tbl = new DataTable();
-            da.Fill(tbl);
-            conn2.Close();
-            #region IP Adresse suchen
-            for (int i = 0; i < tbl.Rows.Count; i++)
-            {
-                DataRow row = tbl.Rows[i];
-                for (int j = 0; j < tbl.Columns.Count; j++)
-                {
-                    if (tbl.Columns[j].ColumnName == "Benutzername")
-                    {
-
-                        lab_auswahl.Text += row[i];
-                        continue;
-                    }
-                }
-            }
-            return "0";
-            #endregion
-        }
-
     }
 }
