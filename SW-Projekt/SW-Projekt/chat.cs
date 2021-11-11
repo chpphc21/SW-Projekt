@@ -28,7 +28,7 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
-        public string deineIP = "192.168.45.";
+        public string deineIP = "192.168.8.";
         //public string deineIP = "192.168.56.";
 
         string query1;
@@ -62,8 +62,8 @@ namespace SW_Projekt
             server.StringEncoder = Encoding.UTF8;
             server.DataReceived += Server_DataReceived;
             try
-            {
-                System.Net.IPAddress ip = System.Net.IPAddress.Parse(getIP());
+            { 
+                System.Net.IPAddress ip = System.Net.IPAddress.Parse(IP);
                 server.Start(ip, Convert.ToInt32(8888));
             }
             catch
@@ -264,9 +264,10 @@ namespace SW_Projekt
             }
 
         }
+        String address = "";
         public string getIP()
         {
-            //String address = "";
+            IP = "";
             //WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
             //using (WebResponse response = request.GetResponse())
             //using (StreamReader stream = new StreamReader(response.GetResponseStream()))
@@ -275,10 +276,9 @@ namespace SW_Projekt
             //}
             //int first = address.IndexOf("Address: ") + 9;
             //int last = address.LastIndexOf("</body>");
-            //address = address.Substring(first, last - first);
+            //IP = address.Substring(first, last - first);
 
-            //MessageBox.Show(address);
-            //return address;
+            //MessageBox.Show(IP);
 
             string pattern = @"\b[10.0.0.]\w+";
             String strHostName = string.Empty;
@@ -309,7 +309,6 @@ namespace SW_Projekt
                         break;
                     }
                 }
-                //IP = "10.0.0.";
                 for (int i = index1; i < index2; i++)
                 {
                     IP += IPneu[i];
@@ -329,7 +328,7 @@ namespace SW_Projekt
             try
             {
                 pinger = new Ping();
-                PingReply reply = pinger.Send("ftp://SW-Projekt:@chpolke.ddns.net");
+                PingReply reply = pinger.Send("chpolke.ddns.net");
                 pingable = reply.Status == IPStatus.Success;
             }
             catch (PingException)
