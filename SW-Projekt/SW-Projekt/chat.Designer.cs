@@ -41,8 +41,11 @@ namespace SW_Projekt
             this.lab_status = new System.Windows.Forms.Label();
             this.but_auswahl = new System.Windows.Forms.Button();
             this.lab_auswahl = new System.Windows.Forms.Label();
-            this.dateien = new System.Windows.Forms.Button();
             this.file1 = new System.Windows.Forms.OpenFileDialog();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.dateienToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.abmeldenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Text_chat
@@ -52,9 +55,9 @@ namespace SW_Projekt
             this.Text_chat.Enabled = false;
             this.Text_chat.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.Text_chat.ForeColor = System.Drawing.Color.DarkGray;
-            this.Text_chat.Location = new System.Drawing.Point(22, 342);
+            this.Text_chat.Location = new System.Drawing.Point(23, 333);
             this.Text_chat.Name = "Text_chat";
-            this.Text_chat.Size = new System.Drawing.Size(318, 32);
+            this.Text_chat.Size = new System.Drawing.Size(437, 32);
             this.Text_chat.TabIndex = 0;
             this.Text_chat.Text = "Nachricht";
             this.Text_chat.Enter += new System.EventHandler(this.Text_chat_Enter);
@@ -65,11 +68,11 @@ namespace SW_Projekt
             // 
             this.but_senden.Enabled = false;
             this.but_senden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.but_senden.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.but_senden.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.but_senden.ForeColor = System.Drawing.Color.White;
-            this.but_senden.Location = new System.Drawing.Point(376, 308);
+            this.but_senden.Location = new System.Drawing.Point(245, 371);
             this.but_senden.Name = "but_senden";
-            this.but_senden.Size = new System.Drawing.Size(127, 57);
+            this.but_senden.Size = new System.Drawing.Size(215, 35);
             this.but_senden.TabIndex = 1;
             this.but_senden.Text = "Senden";
             this.but_senden.UseVisualStyleBackColor = true;
@@ -82,20 +85,20 @@ namespace SW_Projekt
             this.chatbox.FormattingEnabled = true;
             this.chatbox.HorizontalScrollbar = true;
             this.chatbox.ItemHeight = 20;
-            this.chatbox.Location = new System.Drawing.Point(22, 45);
+            this.chatbox.Location = new System.Drawing.Point(23, 73);
             this.chatbox.Name = "chatbox";
-            this.chatbox.Size = new System.Drawing.Size(318, 244);
+            this.chatbox.Size = new System.Drawing.Size(437, 264);
             this.chatbox.TabIndex = 3;
             // 
             // but_ver
             // 
             this.but_ver.Enabled = false;
             this.but_ver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.but_ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.but_ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.but_ver.ForeColor = System.Drawing.Color.White;
-            this.but_ver.Location = new System.Drawing.Point(22, 295);
+            this.but_ver.Location = new System.Drawing.Point(23, 371);
             this.but_ver.Name = "but_ver";
-            this.but_ver.Size = new System.Drawing.Size(318, 29);
+            this.but_ver.Size = new System.Drawing.Size(216, 35);
             this.but_ver.TabIndex = 4;
             this.but_ver.Text = "Verlauf löschen";
             this.but_ver.UseVisualStyleBackColor = true;
@@ -106,7 +109,7 @@ namespace SW_Projekt
             this.lab_user.AutoSize = true;
             this.lab_user.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lab_user.ForeColor = System.Drawing.Color.White;
-            this.lab_user.Location = new System.Drawing.Point(573, 12);
+            this.lab_user.Location = new System.Drawing.Point(517, 53);
             this.lab_user.Name = "lab_user";
             this.lab_user.Size = new System.Drawing.Size(145, 24);
             this.lab_user.TabIndex = 5;
@@ -119,7 +122,7 @@ namespace SW_Projekt
             this.list_user.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
             this.list_user.FormattingEnabled = true;
             this.list_user.ItemHeight = 29;
-            this.list_user.Location = new System.Drawing.Point(570, 47);
+            this.list_user.Location = new System.Drawing.Point(514, 88);
             this.list_user.Name = "list_user";
             this.list_user.Size = new System.Drawing.Size(169, 234);
             this.list_user.TabIndex = 7;
@@ -130,7 +133,7 @@ namespace SW_Projekt
             this.but_akt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_akt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.but_akt.ForeColor = System.Drawing.Color.White;
-            this.but_akt.Location = new System.Drawing.Point(570, 290);
+            this.but_akt.Location = new System.Drawing.Point(514, 331);
             this.but_akt.Name = "but_akt";
             this.but_akt.Size = new System.Drawing.Size(169, 34);
             this.but_akt.TabIndex = 8;
@@ -141,7 +144,7 @@ namespace SW_Projekt
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(538, 18);
+            this.label1.Location = new System.Drawing.Point(482, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(2, 350);
             this.label1.TabIndex = 9;
@@ -151,7 +154,7 @@ namespace SW_Projekt
             this.lab_status.AutoSize = true;
             this.lab_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lab_status.ForeColor = System.Drawing.Color.White;
-            this.lab_status.Location = new System.Drawing.Point(23, 13);
+            this.lab_status.Location = new System.Drawing.Point(24, 41);
             this.lab_status.Name = "lab_status";
             this.lab_status.Size = new System.Drawing.Size(246, 20);
             this.lab_status.TabIndex = 10;
@@ -162,7 +165,7 @@ namespace SW_Projekt
             this.but_auswahl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_auswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.but_auswahl.ForeColor = System.Drawing.Color.White;
-            this.but_auswahl.Location = new System.Drawing.Point(570, 331);
+            this.but_auswahl.Location = new System.Drawing.Point(514, 372);
             this.but_auswahl.Name = "but_auswahl";
             this.but_auswahl.Size = new System.Drawing.Size(169, 34);
             this.but_auswahl.TabIndex = 11;
@@ -174,28 +177,42 @@ namespace SW_Projekt
             // 
             this.lab_auswahl.AutoSize = true;
             this.lab_auswahl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lab_auswahl.Location = new System.Drawing.Point(91, 13);
+            this.lab_auswahl.Location = new System.Drawing.Point(92, 41);
             this.lab_auswahl.Name = "lab_auswahl";
             this.lab_auswahl.Size = new System.Drawing.Size(0, 20);
             this.lab_auswahl.TabIndex = 12;
             // 
-            // dateien
-            // 
-            this.dateien.Enabled = false;
-            this.dateien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dateien.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.dateien.ForeColor = System.Drawing.Color.White;
-            this.dateien.Location = new System.Drawing.Point(376, 116);
-            this.dateien.Name = "dateien";
-            this.dateien.Size = new System.Drawing.Size(127, 45);
-            this.dateien.TabIndex = 13;
-            this.dateien.Text = "Dateien";
-            this.dateien.UseVisualStyleBackColor = true;
-            this.dateien.Click += new System.EventHandler(this.button1_Click_2);
-            // 
             // file1
             // 
             this.file1.FileName = "openFileDialog1";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Black;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateienToolStripMenuItem,
+            this.abmeldenToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(703, 24);
+            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // dateienToolStripMenuItem
+            // 
+            this.dateienToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.dateienToolStripMenuItem.Name = "dateienToolStripMenuItem";
+            this.dateienToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.dateienToolStripMenuItem.Text = "Dateien";
+            this.dateienToolStripMenuItem.Click += new System.EventHandler(this.dateienToolStripMenuItem_Click);
+            // 
+            // abmeldenToolStripMenuItem
+            // 
+            this.abmeldenToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.abmeldenToolStripMenuItem.Name = "abmeldenToolStripMenuItem";
+            this.abmeldenToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.abmeldenToolStripMenuItem.Text = "Abmelden";
+            this.abmeldenToolStripMenuItem.Click += new System.EventHandler(this.abmeldenToolStripMenuItem_Click);
             // 
             // chat
             // 
@@ -203,8 +220,7 @@ namespace SW_Projekt
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(759, 389);
-            this.Controls.Add(this.dateien);
+            this.ClientSize = new System.Drawing.Size(703, 419);
             this.Controls.Add(this.lab_auswahl);
             this.Controls.Add(this.but_auswahl);
             this.Controls.Add(this.lab_status);
@@ -216,14 +232,18 @@ namespace SW_Projekt
             this.Controls.Add(this.chatbox);
             this.Controls.Add(this.but_senden);
             this.Controls.Add(this.Text_chat);
+            this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "chat";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chat - ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.chat_FormClosing);
             this.Load += new System.EventHandler(this.chat_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,7 +262,9 @@ namespace SW_Projekt
         private System.Windows.Forms.Label lab_status;
         private System.Windows.Forms.Button but_auswahl;
         private System.Windows.Forms.Label lab_auswahl;
-        private System.Windows.Forms.Button dateien;
         private System.Windows.Forms.OpenFileDialog file1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem dateienToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem abmeldenToolStripMenuItem;
     }
 }

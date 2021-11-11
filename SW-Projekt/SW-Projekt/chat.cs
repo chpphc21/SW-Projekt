@@ -233,7 +233,6 @@ namespace SW_Projekt
                 chatbox.Enabled = true;
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
-                dateien.Enabled = true;
                 lab_status.Text = "Chat mit";
                 query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
                 conn2.Open();
@@ -320,7 +319,7 @@ namespace SW_Projekt
             return IP;
         }
 
-        private void button1_Click_2(object sender, EventArgs e)
+        private void dateienToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool pingable = false;
             Ping pinger = null;
@@ -352,7 +351,25 @@ namespace SW_Projekt
             {
                 MessageBox.Show("Es gab einen Fehler bei der Serververbindung", "Keine Antwort", 0, MessageBoxIcon.Error);
             }
+        }
 
+        private void abmeldenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user + "';";
+            conn2.Open();
+            cmd = new MySqlCommand(query1, conn2);
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            conn2.Close();
+
+            if (server.IsStarted)
+                server.Stop();
         }
 
         private void list_user_DoubleClick(object sender, EventArgs e)
@@ -364,7 +381,6 @@ namespace SW_Projekt
                 chatbox.Enabled = true;
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
-                dateien.Enabled = true;
                 lab_status.Text = "Chat mit";
                 query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
                 conn2.Open();
