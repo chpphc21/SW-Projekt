@@ -72,7 +72,7 @@ namespace SW_Projekt
                         MessageBox.Show(ex.ToString());
                     }
                     conn.Close();
-
+                    Chat.thisuser = text_anm.Text;
                     Chat.Show();
                     Chat.Text += text_anm.Text;
                     Chat.user = text_anm.Text;
@@ -120,6 +120,7 @@ namespace SW_Projekt
                     conn.Open();
                     cmd = new MySqlCommand(query1, conn);
                     cmd.ExecuteNonQuery();
+                    Chat.thisuser = text_reg.Text;
                     Chat.Show();
                     Chat.Text += text_reg.Text;
                     Chat.user = text_reg.Text;

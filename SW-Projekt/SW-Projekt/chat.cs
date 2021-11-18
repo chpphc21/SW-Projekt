@@ -28,9 +28,10 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
-        public string deineIP = "192.168.8.";
+        public string deineIP = "172.20.10.";
         //public string deineIP = "192.168.56.";
 
+        public string thisuser;
         string query1;
         public string user;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
@@ -212,10 +213,10 @@ namespace SW_Projekt
                             continue;
                         }
                     }
-                    list_user.Items.Add(record);
-                    record = "";
                 }
-
+                record = record.Replace(thisuser + "\n", "");
+                list_user.Items.Add(record);
+                record="";
                 #endregion
             }
             catch
@@ -370,6 +371,8 @@ namespace SW_Projekt
 
             if (server.IsStarted)
                 server.Stop();
+
+            but_akt.PerformClick();
         }
 
         private void list_user_DoubleClick(object sender, EventArgs e)

@@ -44,7 +44,6 @@ namespace SW_Projekt
             this.file1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateienToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abmeldenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,9 +143,9 @@ namespace SW_Projekt
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(482, 59);
+            this.label1.Location = new System.Drawing.Point(482, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2, 350);
+            this.label1.Size = new System.Drawing.Size(2, 375);
             this.label1.TabIndex = 9;
             // 
             // lab_status
@@ -190,8 +189,7 @@ namespace SW_Projekt
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Black;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dateienToolStripMenuItem,
-            this.abmeldenToolStripMenuItem});
+            this.dateienToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(703, 24);
@@ -205,14 +203,6 @@ namespace SW_Projekt
             this.dateienToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.dateienToolStripMenuItem.Text = "Dateien";
             this.dateienToolStripMenuItem.Click += new System.EventHandler(this.dateienToolStripMenuItem_Click);
-            // 
-            // abmeldenToolStripMenuItem
-            // 
-            this.abmeldenToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.abmeldenToolStripMenuItem.Name = "abmeldenToolStripMenuItem";
-            this.abmeldenToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
-            this.abmeldenToolStripMenuItem.Text = "Abmelden";
-            this.abmeldenToolStripMenuItem.Click += new System.EventHandler(this.abmeldenToolStripMenuItem_Click);
             // 
             // chat
             // 
@@ -265,6 +255,5 @@ namespace SW_Projekt
         private System.Windows.Forms.OpenFileDialog file1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dateienToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abmeldenToolStripMenuItem;
     }
 }
