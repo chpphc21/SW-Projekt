@@ -28,8 +28,8 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
-        public string deineIP = "172.20.10.";
-        //public string deineIP = "192.168.56.";
+        //public string deineIP = "172.20.10."; //chp
+        public string deineIP = "192.168.191."; //flo
         public int userlog = 0;
         public string thisuser;
         string query1;
