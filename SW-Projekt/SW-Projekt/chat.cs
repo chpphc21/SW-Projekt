@@ -30,7 +30,7 @@ namespace SW_Projekt
         string IP_3;
         public string deineIP = "172.20.10.";
         //public string deineIP = "192.168.56.";
-
+        public int userlog = 0;
         public string thisuser;
         string query1;
         public string user;
@@ -63,7 +63,7 @@ namespace SW_Projekt
             server.StringEncoder = Encoding.UTF8;
             server.DataReceived += Server_DataReceived;
             try
-            { 
+            {
                 System.Net.IPAddress ip = System.Net.IPAddress.Parse(IP);
                 server.Start(ip, Convert.ToInt32(8888));
             }
@@ -91,9 +91,25 @@ namespace SW_Projekt
                 //}
                 //if (!e.MessageString.Contains("172.16.46."))
                 //{
+
                 string mes = e.MessageString.Substring(0, e.MessageString.Length - 1);
-                chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + mes);
-                chatbox.SelectedIndex = chatbox.Items.Count - 1;
+
+                if (mes != "codeofflinecode")
+                {
+                    chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + mes);
+                    chatbox.SelectedIndex = chatbox.Items.Count - 1;
+                }
+                else
+                {
+                    MessageBox.Show("Partner ist offline");
+                    lab_status.Text="Online aber kein Chat ausgewählt";
+                    lab_auswahl.Text = "";
+                    chatbox.Enabled = false;
+                    Text_chat.Enabled = false;
+                    but_senden.Enabled = false;
+                    but_ver.Enabled = false;
+                    but_akt.PerformClick();
+                }
                 //}
             });
         }
@@ -111,12 +127,18 @@ namespace SW_Projekt
                 MessageBox.Show(ex.ToString());
             }
             conn2.Close();
+            try
+            {
+                client.WriteLineAndGetReply("codeofflinecode", TimeSpan.FromSeconds(0));
+            }
+            catch 
+            {
+            }
 
             if (server.IsStarted)
                 server.Stop();
 
             Environment.Exit(0);
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -152,7 +174,7 @@ namespace SW_Projekt
                 catch
                 {
                     MessageBox.Show("Es gab einen Fehler beim senden der Nachricht", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                 }
             }
             Cursor.Current = Cursors.Default;
@@ -216,7 +238,7 @@ namespace SW_Projekt
                 }
                 record = record.Replace(thisuser + "\n", "");
                 list_user.Items.Add(record);
-                record="";
+                record = "";
                 #endregion
             }
             catch
@@ -253,6 +275,7 @@ namespace SW_Projekt
 
                             IP_user2 += row[i];
                             continue;
+                            userlog = 1;
                         }
                     }
                 }
