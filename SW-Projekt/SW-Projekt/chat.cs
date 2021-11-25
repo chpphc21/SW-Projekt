@@ -23,7 +23,7 @@ namespace SW_Projekt
     {
         //Parameter für die Datenbank
         // Projekt@% Projekt DB:Benutzer
-
+        giga Giga = new giga();
 
         string IP, IPneu;
         string IP_user2 = "";
@@ -32,7 +32,7 @@ namespace SW_Projekt
         public string deineIP = "192.168.191."; //flo
         public int userlog = 0;
         public string thisuser;
-        string query1;
+        string query1; 
         public string user;
         string SQLServer = "server = koordinationsleiter.ddns.net; user id =Projekt;password=Projekt; database=Benutzer; sslmode=None;port=3306; persistsecurityinfo=True";
 
@@ -53,15 +53,15 @@ namespace SW_Projekt
         }
         private void chat_Load(object sender, EventArgs e)
         {
-            but_akt.PerformClick();
+            but_akt.PerformClick(); //aktualisiert online nutzer
             client = new SimpleTcpClient();
             client.StringEncoder = Encoding.UTF8;
-            client.DataReceived += Client_DataReceived;
+            client.DataReceived += Client_DataReceived;// startet TCP reciever
 
             server = new SimpleTcpServer();
             server.Delimiter = 0x13;//enter
             server.StringEncoder = Encoding.UTF8;
-            server.DataReceived += Server_DataReceived;
+            server.DataReceived += Server_DataReceived;//startet TCP sender
             try
             {
                 System.Net.IPAddress ip = System.Net.IPAddress.Parse(IP);
@@ -94,7 +94,7 @@ namespace SW_Projekt
 
                 string mes = e.MessageString.Substring(0, e.MessageString.Length - 1);
 
-                if (mes != "codeofflinecode")
+                if (mes != "codeofflinecode")//für onlinestatus prüfen
                 {
                     chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + mes);
                     chatbox.SelectedIndex = chatbox.Items.Count - 1;
@@ -159,6 +159,11 @@ namespace SW_Projekt
                 Text_chat.Text = disses[rnd];
             }
             #endregion
+            if (Text_chat.Text == "gigachat")
+            {
+                Text_chat.Text = "";
+                Giga.Show();
+            }
 
             if (Text_chat.Text != "Nachricht")
             {
@@ -169,7 +174,7 @@ namespace SW_Projekt
                     client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(0));
                     Text_chat.Clear();
                     Text_chat.Focus();
-                    chatbox.SelectedIndex = chatbox.Items.Count - 1;
+                    chatbox.SelectedIndex = chatbox.Items.Count - 1;//schickt nachricht
                 }
                 catch
                 {
@@ -212,7 +217,7 @@ namespace SW_Projekt
         {
             try
             {
-                list_user.Items.Clear();
+                list_user.Items.Clear();//aktualisiert die online Benutzer
                 but_auswahl.Enabled = true;
                 //Benutzer abrufen bei denen das Feld Status auf online steht
                 query1 = "select Benutzername from Benutzer.Benutzer where Status='online';";
