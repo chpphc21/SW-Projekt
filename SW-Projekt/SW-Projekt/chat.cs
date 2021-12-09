@@ -240,9 +240,10 @@ namespace SW_Projekt
                             continue;
                         }
                     }
+                    record = record.Replace(thisuser + "\n", "");
+                    list_user.Items.Add(record);
+                    record = "";
                 }
-                record = record.Replace(thisuser + "\n", "");
-                list_user.Items.Add(record);
                 record = "";
                 #endregion
             }
