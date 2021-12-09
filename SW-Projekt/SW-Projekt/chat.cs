@@ -236,11 +236,11 @@ namespace SW_Projekt
                     {
                         if (tbl.Columns[j].ColumnName == "Benutzername")
                         {
-                            record += row[j] + "\n";
-                            continue;
+                                record += row[j] + "\n";
+                                continue;
                         }
                     }
-                    record = record.Replace(thisuser + "\n", "");
+                    //record = record.Replace(thisuser + "\n", "");
                     list_user.Items.Add(record);
                     record = "";
                 }
