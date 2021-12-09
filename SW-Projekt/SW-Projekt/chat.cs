@@ -357,7 +357,7 @@ namespace SW_Projekt
             IP = IPneu;
             return IP;
         }
-
+       
         private void dateienToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool pingable = false;
