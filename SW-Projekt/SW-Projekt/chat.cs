@@ -28,8 +28,8 @@ namespace SW_Projekt
         string IP, IPneu;
         string IP_user2 = "";
         string IP_3;
-        //public string deineIP = "172.20.10."; //chp
-        public string deineIP = "192.168.191."; //flo
+        public string deineIP = "172.20.10."; //chp
+        //public string deineIP = "192.168.191."; //flo
         public int userlog = 0;
         public string thisuser;
         string query1; 
@@ -307,44 +307,53 @@ namespace SW_Projekt
             //IP = address.Substring(first, last - first);
 
             //MessageBox.Show(IP);
-
+            IPneu = "";
             string pattern = @"\b[10.0.0.]\w+";
             String strHostName = string.Empty;
             Regex rg = new Regex(pattern);
             strHostName = Dns.GetHostName();
             IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
             IPAddress[] addr = ipEntry.AddressList;
-            foreach (IPAddress ip in addr)
+            //foreach (IPAddress ip in addr)
+            //{
+            //    if (rg.IsMatch(ip.ToString()))
+            //    {
+            //        IPneu += ip.ToString() + "%";
+            //    }
+            //}
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
             {
-                if (rg.IsMatch(ip.ToString()))
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    IPneu += ip.ToString() + "%";
+                    IPneu += ip.ToString();
                 }
             }
             if (IPneu == "")
             {
                 throw new Exception();
             }
-            if (IPneu.Contains(deineIP))
-            {
-                int index1 = IPneu.IndexOf(deineIP);
-                int index2 = 10;
-                for (int i = index1; i < index1 + 18; i++)
-                {
-                    if (IPneu[i] == '%')
-                    {
-                        index2 = i;
-                        break;
-                    }
-                }
-                for (int i = index1; i < index2; i++)
-                {
-                    IP += IPneu[i];
-                }
-            }
+
+            //if (IPneu.Contains(deineIP))
+            //{
+            //    int index1 = IPneu.IndexOf(deineIP);
+            //    int index2 = 10;
+            //    for (int i = index1; i < index1 + 18; i++)
+            //    {
+            //        if (IPneu[i] == '%')
+            //        {
+            //            index2 = i;
+            //            break;
+            //        }
+            //    }
+            //    for (int i = index1; i < index2; i++)
+            //    {
+            //        IP += IPneu[i];
+            //    }
+            //}
             //else if (!IPneu.Contains(deineIP))
             //    MessageBox.Show("Netzwerk fehler", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+            IP = IPneu;
             return IP;
         }
 
