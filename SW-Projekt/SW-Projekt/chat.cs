@@ -65,7 +65,7 @@ namespace SW_Projekt
             try
             {
                 System.Net.IPAddress ip = System.Net.IPAddress.Parse(IP);
-                server.Start(ip, Convert.ToInt32(8888));
+                server.Start(ip, Convert.ToInt32(8888));//startet TCP-Server mit IP
             }
             catch
             {
@@ -99,7 +99,7 @@ namespace SW_Projekt
                     chatbox.Items.Add(lab_auswahl.Text.Replace("\n", "") + ": " + mes);
                     chatbox.SelectedIndex = chatbox.Items.Count - 1;
                 }
-                else
+                else//Wenn partner offline ist wird der andere "chatter" benachrichtigt
                 {
                     MessageBox.Show("Partner ist offline");
                     lab_status.Text="Online aber kein Chat ausgewählt";
@@ -115,7 +115,7 @@ namespace SW_Projekt
         }
         private void chat_FormClosing(object sender, FormClosingEventArgs e)
         {
-            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user + "';";
+            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user + "';";//setzt aktuellen Benutzer auf offline
             conn2.Open();
             cmd = new MySqlCommand(query1, conn2);
             try
@@ -129,16 +129,16 @@ namespace SW_Projekt
             conn2.Close();
             try
             {
-                client.WriteLineAndGetReply("codeofflinecode", TimeSpan.FromSeconds(0));
+                client.WriteLineAndGetReply("codeofflinecode", TimeSpan.FromSeconds(0));//schickt dem anderen Benutzer eine Nachricht, dass er weiß das sein gegenüber offline ist
             }
             catch 
             {
             }
 
-            if (server.IsStarted)
+            if (server.IsStarted)//stoppt TCP-Server
                 server.Stop();
 
-            Environment.Exit(0);
+            Application.Exit();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -159,7 +159,7 @@ namespace SW_Projekt
                 Text_chat.Text = disses[rnd];
             }
             #endregion
-            if (Text_chat.Text == "gigachat")
+            if (Text_chat.Text == "gigachat")//hidden feature
             {
                 Text_chat.Text = "";
                 Giga.Show();
@@ -169,16 +169,16 @@ namespace SW_Projekt
             {
                 try
                 {
-                    client.Connect(IP_user2, 8888);
-                    chatbox.Items.Add("Du: " + Text_chat.Text);
-                    client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(0));
+                    client.Connect(IP_user2, 8888);//Verbindet mit anderem PC
+                    chatbox.Items.Add("Du: " + Text_chat.Text);//gibt Text in chatbox
+                    client.WriteLineAndGetReply(Text_chat.Text, TimeSpan.FromSeconds(0));//schickt Text an anderen
                     Text_chat.Clear();
                     Text_chat.Focus();
-                    chatbox.SelectedIndex = chatbox.Items.Count - 1;//schickt nachricht
+                    chatbox.SelectedIndex = chatbox.Items.Count - 1;//scrollt automatisch herunter
                 }
                 catch
                 {
-                    MessageBox.Show("Es gab einen Fehler beim senden der Nachricht", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Es gab einen Fehler beim senden der Nachricht", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);//Error
 
                 }
             }
@@ -187,7 +187,7 @@ namespace SW_Projekt
 
         private void Text_chat_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)//Bei "Enter" drücken wird eine Nachricht gesendet
             {
                 but_senden.Focus();
                 but_senden.PerformClick();
@@ -196,13 +196,13 @@ namespace SW_Projekt
 
         private void Text_chat_Enter(object sender, EventArgs e)
         {
-            Text_chat.Clear();
+            Text_chat.Clear();//Bei "Senden" drücken wird eine Nachricht gesendet
             Text_chat.ForeColor = Color.Black;
         }
 
         private void Text_chat_Leave(object sender, EventArgs e)
         {
-            if (Text_chat.Text == "")
+            if (Text_chat.Text == "")//Wenn das Feld verlassen wird erscheint ein Text ausgegraut
             {
                 Text_chat.ForeColor = Color.DarkGray;
                 Text_chat.Text = "Nachricht";
@@ -211,7 +211,7 @@ namespace SW_Projekt
 
         private void but_ver_Click(object sender, EventArgs e)
         {
-            chatbox.Items.Clear();
+            chatbox.Items.Clear();//verlauf löschen
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
@@ -222,7 +222,7 @@ namespace SW_Projekt
                 //Benutzer abrufen bei denen das Feld Status auf online steht
                 query1 = "select Benutzername from Benutzer.Benutzer where Status='online';";
                 conn2.Open();
-                cmd = new MySqlCommand(query1, conn2);
+                cmd = new MySqlCommand(query1, conn2);//db abfrage
                 da = new MySqlDataAdapter(cmd);
                 tbl = new DataTable();
                 da.Fill(tbl);
@@ -234,7 +234,7 @@ namespace SW_Projekt
                     DataRow row = tbl.Rows[i];
                     for (int j = 0; j < tbl.Columns.Count; j++)
                     {
-                        if (tbl.Columns[j].ColumnName == "Benutzername")
+                        if (tbl.Columns[j].ColumnName == "Benutzername")//sucht benutzernamen und setzt diese in "record" ein
                         {
                                 record += row[j] + "\n";
                                 continue;
@@ -263,7 +263,7 @@ namespace SW_Projekt
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
-                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
+                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";//wählt IP-Adresse von anderem Benutzer aus
                 conn2.Open();
                 cmd = new MySqlCommand(query1, conn2);
                 da = new MySqlDataAdapter(cmd);
@@ -276,7 +276,7 @@ namespace SW_Projekt
                     DataRow row = tbl.Rows[i];
                     for (int j = 0; j < tbl.Columns.Count; j++)
                     {
-                        if (tbl.Columns[j].ColumnName == "IPAdresse")
+                        if (tbl.Columns[j].ColumnName == "IPAdresse")//speichert die IP-ADresse von anderem Benutzer für TCP
                         {
 
                             IP_user2 += row[i];
@@ -309,25 +309,19 @@ namespace SW_Projekt
 
             //MessageBox.Show(IP);
             IPneu = "";
-            string pattern = @"\b[10.0.0.]\w+";
+            string pattern = @"\b[10.0.0.]\w+"; //IP such pattern
             String strHostName = string.Empty;
             Regex rg = new Regex(pattern);
             strHostName = Dns.GetHostName();
             IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
             IPAddress[] addr = ipEntry.AddressList;
-            //foreach (IPAddress ip in addr)
-            //{
-            //    if (rg.IsMatch(ip.ToString()))
-            //    {
-            //        IPneu += ip.ToString() + "%";
-            //    }
-            //}
+
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    IPneu += ip.ToString();
+                    IPneu += ip.ToString();//setzt aktuelle IP Adresse in "IPneu"
                 }
             }
             if (IPneu == "")
@@ -365,7 +359,7 @@ namespace SW_Projekt
 
             try
             {
-                pinger = new Ping();
+                pinger = new Ping();//schaut ob der Server erreichbar ist. erst dann wird ein Verbindugsaufbau versucht
                 PingReply reply = pinger.Send("chpolke.ddns.net");
                 pingable = reply.Status == IPStatus.Success;
             }
@@ -383,7 +377,7 @@ namespace SW_Projekt
             if (pingable)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                file1.InitialDirectory = "ftp://SW-Projekt:@chpolke.ddns.net";
+                file1.InitialDirectory = "ftp://SW-Projekt:@chpolke.ddns.net";//öffnet Datenaustausch Ordner
                 file1.ShowDialog();
             }
             else
@@ -392,28 +386,7 @@ namespace SW_Projekt
             }
         }
 
-        private void abmeldenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user + "';";
-            conn2.Open();
-            cmd = new MySqlCommand(query1, conn2);
-            try
-            {
-                cmd.ExecuteNonQuery();
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            conn2.Close();
-
-            if (server.IsStarted)
-                server.Stop();
-
-            but_akt.PerformClick();
-        }
-
-        private void list_user_DoubleClick(object sender, EventArgs e)
+        private void list_user_DoubleClick(object sender, EventArgs e)//dasselbe wie "auswahl" Button
         {
             try
             {
