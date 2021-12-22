@@ -29,6 +29,7 @@ namespace SW_Projekt
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(chat));
             this.Text_chat = new System.Windows.Forms.TextBox();
             this.but_senden = new System.Windows.Forms.Button();
@@ -44,6 +45,8 @@ namespace SW_Projekt
             this.file1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateienToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timergiga = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -204,6 +207,16 @@ namespace SW_Projekt
             this.dateienToolStripMenuItem.Text = "Dateien";
             this.dateienToolStripMenuItem.Click += new System.EventHandler(this.dateienToolStripMenuItem_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timergiga
+            // 
+            this.timergiga.Interval = 3000;
+            this.timergiga.Tick += new System.EventHandler(this.timergiga_Tick);
+            // 
             // chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,5 +268,7 @@ namespace SW_Projekt
         private System.Windows.Forms.OpenFileDialog file1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dateienToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timergiga;
     }
 }

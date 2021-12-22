@@ -53,6 +53,7 @@ namespace SW_Projekt
         }
         private void chat_Load(object sender, EventArgs e)
         {
+            timer1.Start();
             but_akt.PerformClick(); //aktualisiert online nutzer
             client = new SimpleTcpClient();
             client.StringEncoder = Encoding.UTF8;
@@ -162,7 +163,8 @@ namespace SW_Projekt
             if (Text_chat.Text == "gigachat")//hidden feature
             {
                 Text_chat.Text = "";
-                Giga.Show();
+                Giga.ShowDialog();
+                timergiga.Start();
             }
 
             if (Text_chat.Text != "Nachricht")
@@ -242,10 +244,9 @@ namespace SW_Projekt
                                 continue;
                         }
                     }
-                    //record = record.Replace(thisuser + "\n", "");
-                    list_user.Items.Add(record);
-                    record = "";
+                    record = record.Replace(thisuser + "\n", "");
                 }
+                list_user.Items.Add(record);
                 record = "";
                 #endregion
             }
@@ -259,13 +260,15 @@ namespace SW_Projekt
         {
             try
             {
+
                 lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
                 Text_chat.Enabled = true;
                 chatbox.Enabled = true;
+                chatbox.Items.Clear();
                 but_senden.Enabled = true;
                 but_ver.Enabled = true;
                 lab_status.Text = "Chat mit";
-                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";//wählt IP-Adresse von anderem Benutzer aus
+                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
                 conn2.Open();
                 cmd = new MySqlCommand(query1, conn2);
                 da = new MySqlDataAdapter(cmd);
@@ -278,12 +281,11 @@ namespace SW_Projekt
                     DataRow row = tbl.Rows[i];
                     for (int j = 0; j < tbl.Columns.Count; j++)
                     {
-                        if (tbl.Columns[j].ColumnName == "IPAdresse")//speichert die IP-ADresse von anderem Benutzer für TCP
+                        if (tbl.Columns[j].ColumnName == "IPAdresse")
                         {
 
                             IP_user2 += row[i];
                             continue;
-                            userlog = 1;
                         }
                     }
                 }
@@ -293,6 +295,42 @@ namespace SW_Projekt
             {
                 MessageBox.Show("Bitte einen Benutzer Auswählen! ", "Achtung", 0, MessageBoxIcon.Error);
             }
+            //try
+            //{
+            //    lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
+            //    Text_chat.Enabled = true;
+            //    chatbox.Enabled = true;
+            //    but_senden.Enabled = true;
+            //    but_ver.Enabled = true;
+            //    lab_status.Text = "Chat mit";
+            //    query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";//wählt IP-Adresse von anderem Benutzer aus
+            //    conn2.Open();
+            //    cmd = new MySqlCommand(query1, conn2);
+            //    da = new MySqlDataAdapter(cmd);
+            //    tbl = new DataTable();
+            //    da.Fill(tbl);
+            //    conn2.Close();
+            //    #region IP Adresse suchen
+            //    for (int i = 0; i < tbl.Rows.Count; i++)
+            //    {
+            //        DataRow row = tbl.Rows[i];
+            //        for (int j = 0; j < tbl.Columns.Count; j++)
+            //        {
+            //            if (tbl.Columns[j].ColumnName == "IPAdresse")//speichert die IP-ADresse von anderem Benutzer für TCP
+            //            {
+
+            //                IP_user2 += row[i];
+            //                continue;
+            //                userlog = 1;
+            //            }
+            //        }
+            //    }
+            //    #endregion
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Bitte einen Benutzer Auswählen! ", "Achtung", 0, MessageBoxIcon.Error);
+            //}
 
         }
         String address = "";
@@ -363,7 +401,7 @@ namespace SW_Projekt
             {
                 pinger = new Ping();//schaut ob der Server erreichbar ist. erst dann wird ein Verbindugsaufbau versucht
                 PingReply reply = pinger.Send("chpolke.ddns.net");
-                pingable = reply.Status == IPStatus.Success;
+                pingable = reply.Status == IPStatus.Success;//wenn ping erfolgreich --> "pingable" = true
             }
             catch (PingException)
             {
@@ -388,43 +426,55 @@ namespace SW_Projekt
             }
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            but_akt.PerformClick();
+        }
+
+        private void timergiga_Tick(object sender, EventArgs e)
+        {
+            Giga.Close();
+            timergiga.Stop();
+        }
+
         private void list_user_DoubleClick(object sender, EventArgs e)//dasselbe wie "auswahl" Button
         {
-            try
-            {
-                lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
-                Text_chat.Enabled = true;
-                chatbox.Enabled = true;
-                but_senden.Enabled = true;
-                but_ver.Enabled = true;
-                lab_status.Text = "Chat mit";
-                query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
-                conn2.Open();
-                cmd = new MySqlCommand(query1, conn2);
-                da = new MySqlDataAdapter(cmd);
-                tbl = new DataTable();
-                da.Fill(tbl);
-                conn2.Close();
-                #region IP Adresse suchen
-                for (int i = 0; i < tbl.Rows.Count; i++)
-                {
-                    DataRow row = tbl.Rows[i];
-                    for (int j = 0; j < tbl.Columns.Count; j++)
-                    {
-                        if (tbl.Columns[j].ColumnName == "IPAdresse")
-                        {
+            but_auswahl.PerformClick();
+            //try
+            //{
+            //    lab_auswahl.Text = list_user.Items[list_user.SelectedIndex].ToString();
+            //    Text_chat.Enabled = true;
+            //    chatbox.Enabled = true;
+            //    but_senden.Enabled = true;
+            //    but_ver.Enabled = true;
+            //    lab_status.Text = "Chat mit";
+            //    query1 = "select IPAdresse from Benutzer.Benutzer where Benutzername='" + lab_auswahl.Text.Replace("\n", "") + "';";
+            //    conn2.Open();
+            //    cmd = new MySqlCommand(query1, conn2);
+            //    da = new MySqlDataAdapter(cmd);
+            //    tbl = new DataTable();
+            //    da.Fill(tbl);
+            //    conn2.Close();
+            //    #region IP Adresse suchen
+            //    for (int i = 0; i < tbl.Rows.Count; i++)
+            //    {
+            //        DataRow row = tbl.Rows[i];
+            //        for (int j = 0; j < tbl.Columns.Count; j++)
+            //        {
+            //            if (tbl.Columns[j].ColumnName == "IPAdresse")
+            //            {
 
-                            IP_user2 += row[i];
-                            continue;
-                        }
-                    }
-                }
-                #endregion
-            }
-            catch
-            {
-                MessageBox.Show("Bitte einen Benutzer Auswählen! ", "Achtung", 0, MessageBoxIcon.Error);
-            }
+            //                IP_user2 += row[i];
+            //                continue;
+            //            }
+            //        }
+            //    }
+            //    #endregion
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Bitte einen Benutzer Auswählen! ", "Achtung", 0, MessageBoxIcon.Error);
+            //}
         }
     }
 }
