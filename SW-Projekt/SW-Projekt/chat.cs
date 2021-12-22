@@ -102,6 +102,18 @@ namespace SW_Projekt
                 }
                 else//Wenn partner offline ist wird der andere "chatter" benachrichtigt
                 {
+                    query1 = "UPDATE Benutzer.Benutzer Set Status='offline', LoginDatum='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where Benutzername ='" + user + "';";//setzt aktuellen Benutzer auf offline
+                    conn2.Open();
+                    cmd = new MySqlCommand(query1, conn2);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                    conn2.Close();
                     MessageBox.Show("Partner ist offline");
                     lab_status.Text="Online aber kein Chat ausgewählt";
                     lab_auswahl.Text = "";
@@ -185,7 +197,7 @@ namespace SW_Projekt
 
                 }
             }
-            client.Disconnect();
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -247,6 +259,10 @@ namespace SW_Projekt
                     record = record.Replace(thisuser + "\n", "");
                 }
                 list_user.Items.Add(record);
+                if (record=="")
+                {
+
+                }
                 record = "";
                 #endregion
             }
