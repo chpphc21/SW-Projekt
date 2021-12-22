@@ -229,7 +229,7 @@ namespace SW_Projekt
             this.MaximizeBox = false;
             this.Name = "chat";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "l";
+            this.Text = " ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.chat_FormClosing);
             this.Load += new System.EventHandler(this.chat_Load);
             this.menuStrip1.ResumeLayout(false);

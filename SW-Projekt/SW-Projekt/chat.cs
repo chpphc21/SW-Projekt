@@ -175,6 +175,7 @@ namespace SW_Projekt
                     Text_chat.Clear();
                     Text_chat.Focus();
                     chatbox.SelectedIndex = chatbox.Items.Count - 1;//scrollt automatisch herunter
+
                 }
                 catch
                 {
@@ -182,6 +183,7 @@ namespace SW_Projekt
 
                 }
             }
+            client.Disconnect();
             Cursor.Current = Cursors.Default;
         }
 
