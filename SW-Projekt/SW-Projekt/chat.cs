@@ -261,7 +261,11 @@ namespace SW_Projekt
                 list_user.Items.Add(record);
                 if (record=="")
                 {
-
+                    list_user.Enabled = false;
+                }
+                else
+                {
+                    list_user.Enabled = true;
                 }
                 record = "";
                 #endregion
@@ -444,7 +448,7 @@ namespace SW_Projekt
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            but_akt.PerformClick();
+            //but_akt.PerformClick();
         }
 
         private void timergiga_Tick(object sender, EventArgs e)
