@@ -272,7 +272,7 @@ namespace SW_Projekt
             }
             catch
             {
-                MessageBox.Show("Nicht mit dem Netzwerk verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nicht mit der Datenbank verbunden", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
